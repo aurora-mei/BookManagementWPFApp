@@ -23,6 +23,7 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                 <GradientStop Color="#FFF0F0F0" Offset="0"/>
             </LinearGradientBrush>
         </Grid.Background>
+        <TextBlock FontSize="16" FontWeight="DemiBold" Name="tb_pendingOrderID" Visibility="Collapsed"    />
         <ScrollViewer Margin="20,10,10,0">
             <StackPanel>
             <StackPanel Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Top" >
@@ -32,16 +33,98 @@ FontFamily="{DynamicResource MaterialDesignFont}"
             </StackPanel>
                 <Expander Margin="0,10,0,0"  HorizontalAlignment="Stretch" >
                     <Expander.Header>
-                        <TextBlock FontSize="16" FontWeight="DemiBold" Name="tb_currentOrder" Text="Current Order"
+                        <TextBlock FontSize="16" FontWeight="DemiBold" Text="Current Order"
             VerticalAlignment="Center" Margin="0,0,10,0" Foreground="#FF1A1A1A"  />
                     </Expander.Header>
-                    <DataGrid Margin="20,10,40,20" Height="auto" Name="dg_currentOrders"
-               materialDesign:DataGridAssist.CellPadding="4 2 2 2"
-               materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
-               CanUserAddRows="False" IsReadOnly="True"
-               CanUserSortColumns="False" AutoGenerateColumns="False">
+                        <Border  Margin="0,0,0,30" CornerRadius="15" BorderBrush="Black" BorderThickness="0.6" Background="White">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                    </DataGrid>
+                                <!-- Order Header -->
+                                <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Margin="10">
+                                    <TextBlock Text="{Binding OrderTitle}" Foreground="#FF1A1A1A" FontWeight="Bold" FontSize="17" />
+                                </StackPanel>
+
+                                <!-- Order Items -->
+                                <ItemsControl Name="ic_orderItems"  Grid.Row="1">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="1" HorizontalAlignment="Stretch" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+
+                                    <!-- Each Order Item -->
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <materialDesign:Card Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                             Style="{StaticResource MaterialDesignOutlinedCard}">
+                                                <Grid Margin="10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="70" />
+                                                        <ColumnDefinition Width="300" />
+                                                        <ColumnDefinition Width="250" />
+                                                        <ColumnDefinition Width="250" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Grid.Column="0" Margin="0" Height="100" Width="70" Stretch="UniformToFill"
+                                       Source="{Binding BookImages}" />
+                                                    <StackPanel Grid.Column="1" Margin="20,10,0,0">
+                                                        <TextBlock Text="{Binding Title}" Foreground="Black" FontSize="15" />
+                                                    <TextBlock x:Name="tb_quantity" Text="{Binding FormattedQuantity}" Foreground="Black" FontSize="15" />
+                                                    </StackPanel>
+                                                <StackPanel Grid.Column="2" Margin="20,10,0,0">
+                                                    <Border  Height="40" CornerRadius="5" Width="122"
+BorderBrush="Black"
+ BorderThickness="0.6"
+ Margin="5,5,10,5"
+materialDesign:ElevationAssist.Elevation="Dp4">
+                                                        <materialDesign:NumericUpDown x:Name="nud_updateOrderItem" VerticalAlignment="Center"  Minimum="1" Value="{Binding Quantity}" ValueChanged="nud_updateOrderItem_Click">
+                                                            <materialDesign:NumericUpDown.IncreaseContent>
+                                                                <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}"
+                        BorderThickness="1"
+                        CornerRadius="20">
+                                                                    <materialDesign:PackIcon Kind="ArrowUp" />
+                                                                </Border>
+                                                            </materialDesign:NumericUpDown.IncreaseContent>
+                                                            <materialDesign:NumericUpDown.DecreaseContent>
+                                                                <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}"
+                        BorderThickness="1"
+                        CornerRadius="20">
+                                                                    <materialDesign:PackIcon Kind="ArrowDown" />
+                                                                </Border>
+                                                            </materialDesign:NumericUpDown.DecreaseContent>
+                                                        </materialDesign:NumericUpDown>
+                                                    </Border>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="3" Margin="30,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                        <TextBlock Text="{Binding FormattedPrice}" Foreground="#FFC95B5B" FontSize="15" />
+                                                    </StackPanel>
+                                                <StackPanel Grid.Column="4" Margin="30,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                    <materialDesign:PackIcon Kind="DeleteCircleOutline" Height="20" Width="20" Name="icon_deleteRoomType"  MouseLeftButtonDown="icon_deleteOrderItem_Click"
+                                                                     VerticalAlignment="Center" Foreground="#FF1A6E5B">
+                                                        <materialDesign:PackIcon.ToolTip>
+                                                            <ToolTip Content="Delete order item" />
+                                                        </materialDesign:PackIcon.ToolTip>
+                                                    </materialDesign:PackIcon>
+                                                </StackPanel>
+                                            </Grid>
+                                            </materialDesign:Card>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <!-- Order Total -->
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                                    <TextBlock  Name="tb_totalPrice" 
+                           HorizontalAlignment="Right" Foreground="#FF1A1A1A" FontWeight="Bold" FontSize="15" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+         
                 </Expander>
                 <!--<UniformGrid Name="ug_bookCards" Columns="4" HorizontalAlignment="Left">
                     --><!-- Book Card 1 --><!--
@@ -162,7 +245,7 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}" Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
                                             <TextBlock Text="Borrow" Foreground="Black" materialDesign:ShadowAssist.Darken="True" />
                                         </Button>
-                                        <Button Margin="0,10,0,5" Name="btn_addCart" materialDesign:ButtonAssist.CornerRadius="5"  Tag="{Binding BookID}"
+                                        <Button Margin="0,10,0,5" Click="btn_addCart_Click" Name="btn_addCart" materialDesign:ButtonAssist.CornerRadius="5"  Tag="{Binding BookID}"
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}" Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
                                             <TextBlock Text="Add to cart" Foreground="Black" materialDesign:ShadowAssist.Darken="True" />
                                         </Button>

@@ -334,7 +334,6 @@ namespace BookManagement.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ShippingMethod")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")

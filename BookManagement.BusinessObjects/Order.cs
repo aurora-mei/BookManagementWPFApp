@@ -13,7 +13,7 @@ namespace BookManagement.BusinessObjects
     {
         public int OrderID { get; set; }
         public int UserID { get; set; }
-        public string ShippingMethod { get; set; }
+        public string? ShippingMethod { get; set; }
         public double TotalPrice{ get; set; }
 
         public double CalTotalPrice()

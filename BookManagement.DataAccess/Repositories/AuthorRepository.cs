@@ -11,13 +11,13 @@ namespace BookManagement.DataAccess.Repositories
     {
         public void AddAuthor(Author author)
         {
-            var db = new BookManagementDbContext();
+            using  var db = new BookManagementDbContext();
             db.Authors.Add(author);
         }
 
         public void DeleteAuthor(int id)
         {
-            var db = new BookManagementDbContext();
+            using  var db = new BookManagementDbContext();
             var author = db.Authors.Find(id);
             if (author != null)
             {
@@ -32,13 +32,13 @@ namespace BookManagement.DataAccess.Repositories
 
         public List<Author> GetListAuthors()
         {
-            var db = new BookManagementDbContext();
+            using  var db = new BookManagementDbContext();
             return db.Authors.ToList();
         }
 
         public void UpdateAuthor(Author author)
         {
-            var db = new BookManagementDbContext();
+            using  var db = new BookManagementDbContext();
             var authorToUpdate = db.Authors.FirstOrDefault(x => x.AuthorID.Equals(author.AuthorID));
             if (authorToUpdate != null)
             {

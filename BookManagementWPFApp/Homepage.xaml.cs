@@ -1,6 +1,7 @@
 ﻿using BookManagement.BusinessObjects;
 using BookManagement.BusinessObjects.ViewModel;
 using BookManagement.DataAccess.Repositories;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,6 +30,7 @@ namespace BookManagementWPFApp
         private readonly IOrderItemRepository _orderItemRepository;
         private readonly IBookRepository _bookRepository;
         private readonly IMyMapper _mapper;
+        public Order PendingOrder{get;set;}
         public HomePage()
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace BookManagementWPFApp
             _orderRepository = new OrderRepository();
             _orderItemRepository = new OrderItemRepository();
             LoadBooks();
+            LoadPendingOrder();
         }
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -63,7 +66,86 @@ namespace BookManagementWPFApp
             ic_books.ItemsSource = new ObservableCollection<BookVM>(bookVMs).ToList<BookVM>();
         }
 
+        private  void LoadPendingOrder()
+        {
+            var currentUserId = int.Parse(Application.Current.Properties["UserID"].ToString());
+            var hasOrderPending =  _orderRepository.GetOrder(x => x.UserID == currentUserId && x.Status == OrderStatusConstant.Pending);
+            if (hasOrderPending != null)
+            {
+                PendingOrder = hasOrderPending;
+            }
+            else
+            {
+                PendingOrder = new Order()
+                {
+                    UserID = currentUserId
+                };
+                _orderRepository.AddOrder(PendingOrder);
+            }
+            tb_pendingOrderID.Text = PendingOrder.OrderID.ToString();
+            var OrderItemVMs = new List<OrderItemVM>();
+            if (PendingOrder.OrderItems.Count() > 0)
+            {
+                foreach (var orderItem in PendingOrder.OrderItems)
+                {
+                    var orderItemVM = new OrderItemVM();
+                    _mapper.Map(orderItem, orderItemVM);
+                    OrderItemVMs.Add(orderItemVM);
+                }
+                ic_orderItems.ItemsSource = new ObservableCollection<OrderItemVM>(OrderItemVMs).ToList<OrderItemVM>();
+                tb_totalPrice.Text ="Total: "+PendingOrder.TotalPrice.ToString("C");
+            }
+        }
+        private void btn_addCart_Click(object sender, RoutedEventArgs e)
+        {
+            //check xem co order pending nao khong
+            //co thi lay, không thì tạo mới
+            //sau do load ra
+            if (sender is Button b)
+            {
+                var book = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
+                _orderItemRepository.AddOrderItem(new OrderItem()
+                {
+                    BookID = (int)b.Tag,
+                    OrderID = PendingOrder.OrderID,
+                    Price = book.Price,
+                    Quantity = 1
+                });
+            }
+            LoadPendingOrder();
+        }
+        private void nud_updateOrderItem_Click(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+           
+            if (sender is NumericUpDown nud && nud.DataContext is OrderItemVM orderItemVM)
+            {
+                _orderItemRepository.UpdateOrderItem(new OrderItem()
+                {
+                    OrderID = orderItemVM.OrderID,
+                    BookID = orderItemVM.BookID,
+                    Quantity = nud.Value,
+                });
+                //tb_quantity.Text = "x" + nud.Value;
+            }
+        }
+        private void icon_deleteOrderItem_Click(object sender, RoutedEventArgs e)
+        {
+            if(sender is PackIcon pi && pi.DataContext is OrderItemVM orderItemVM)
+            {
+                var result = MessageBox.Show("Are you sure you want to remove this item", "Confirm Remove Item", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if(result == MessageBoxResult.Yes)
+                {
+                    _orderItemRepository.DeleteOrderItem(new OrderItem()
+                    {
+                        OrderID = orderItemVM.OrderID,
+                        BookID = orderItemVM.BookID
+                    });
+                    MessageBox.Show("Remove item successfull!");
+                }
+                MessageBox.Show("Cancel remove action successfull!");
 
+            }
+        }
 
         }
     
