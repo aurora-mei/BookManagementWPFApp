@@ -32,8 +32,8 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                                 </StackPanel>
                             </Border>
                         </MenuItem.Header>
-                        <!-- Dropdown items -->
-                        <MenuItem Cursor="Hand" Header="Log out" Click="navigate_logOut" />
+                        <!-- Dropdown items (Commented out for no errors) -->
+                        <!--<MenuItem Cursor="Hand" Header="Log out" Click="navigate_logOut" />-->
                     </MenuItem>
                 </Menu>
             </StackPanel>
