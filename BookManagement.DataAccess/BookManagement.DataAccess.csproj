@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookManagement.BusinessObjects\BookManagement.BusinessObjects.csproj" />
+    <ProjectReference Include="..\Util\Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>

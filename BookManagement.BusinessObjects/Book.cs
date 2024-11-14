@@ -17,9 +17,9 @@ namespace BookManagement.BusinessObjects
         public int CategoryID { get; set; }
         public string Description { get; set; }
         public int AuthorID { get; set; }
-        public int Language { get; set; }
-        public int DiscountID { get; set; }
-        public string BookPDFLink { get; set; }
+        public string Language { get; set; }
+        public int? DiscountID { get; set; }
+        public string? BookPDFLink { get; set; }
         public string BookImages { get; set; }
         public virtual Category Category { get; set; }
         public virtual Author Author { get; set; }

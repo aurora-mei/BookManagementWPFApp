@@ -14,7 +14,19 @@ namespace BookManagement.BusinessObjects
         public int OrderID { get; set; }
         public int UserID { get; set; }
         public string ShippingMethod { get; set; }
-        public double TotalPrice { get; set; }
+        public double TotalPrice{ get; set; }
+
+        public double CalTotalPrice()
+        {
+            if (TotalPrice == 0 && OrderItems != null)
+            {
+                foreach (var item in OrderItems)
+                {
+                    TotalPrice += item.Price;
+                }
+            }
+            return TotalPrice;
+        }
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }
         public virtual User User { get; set; }

@@ -1,16 +1,23 @@
 using BookManagement.BusinessObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookManagement.DataAccess.Repositories;
 
-public class CategoryRepository : ICatgoryRepository
+public class CategoryRepository : ICategoryRepository
 {
 	public List<Category> GetListCategories()
 	{
 		var db = new BookManagementDbContext();
-		return db.Categories.ToList();
+		return db.Categories.Include(x=>x.Books).ThenInclude(x=>x.Author)
+			.ToList();
 	}
-
-	public void AddCategory(Category category)
+    public Category? GetCategoryById( int id)
+    {
+        var db = new BookManagementDbContext();
+        return db.Categories.Include(x => x.Books).ThenInclude(x => x.Author)
+            .FirstOrDefault(x=>x.CategoryID == id);
+    }
+    public void AddCategory(Category category)
 	{
 		var db = new BookManagementDbContext();
 		db.Categories.Add(category);

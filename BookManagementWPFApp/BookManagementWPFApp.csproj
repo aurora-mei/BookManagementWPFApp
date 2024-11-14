@@ -30,4 +30,8 @@
     <Resource Include="e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookManagement.DataAccess\BookManagement.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

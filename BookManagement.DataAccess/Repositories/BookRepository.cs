@@ -1,4 +1,6 @@
 using BookManagement.BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using Util;
 
 namespace BookManagement.DataAccess.Repositories;
 
@@ -7,7 +9,14 @@ public class BookRepository : IBookRepository
 	public List<Book> GetListBooks()
 	{
 		var db = new BookManagementDbContext();
-		return db.Books.ToList();
+		return db.Books.Include(x => x.Author).Include(x => x.Category)
+			.Include(x => x.OrderItems).Include(x => x.Loans).ToList();
+	}
+	public Book? GetBookById(int id)
+	{
+		var db = new BookManagementDbContext();
+		return db.Books.Include(x => x.Author).Include(x => x.Category)
+			.Include(x => x.OrderItems).Include(x => x.Loans).FirstOrDefault(x => x.BookID == id);
 	}
 
 	public void AddBook(Book book)
@@ -34,7 +43,7 @@ public class BookRepository : IBookRepository
 			bookToUpdate.DiscountID = book.DiscountID;
 			bookToUpdate.BookPDFLink = book.BookPDFLink;
 			bookToUpdate.BookImages = book.BookImages;
-			
+
 			db.SaveChanges();
 		}
 		else
@@ -57,4 +66,20 @@ public class BookRepository : IBookRepository
 			throw new Exception("Book not found");
 		}
 	}
+
+    public List<Book> GetBorrowedBooksOfUser(int userId)
+    {
+        var db = new BookManagementDbContext();
+		var loanOfUser = db.Loans.Include(x => x.Book).Where(x => x.UserID == userId);
+        var borrowedBookIds = loanOfUser
+		.Where(x => x.Status == LoanStatusConstant.Borrowed)
+		.Select(x => x.BookID)
+		.ToList();
+
+        var borrowedBooks = db.Books.Include(x => x.Author).Include(x => x.Category)
+            .Include(x => x.OrderItems).Include(x => x.Loans)
+            .Where(book => borrowedBookIds.Contains(book.BookID))
+            .ToList();
+		return borrowedBooks;
+    }
 }

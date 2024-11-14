@@ -8,4 +8,5 @@ public interface IOrderRepository
 	void AddOrder(Order order);
 	void UpdateOrder(Order order);
 	void DeleteOrder(int id);
+	public Order? GetOrderById(int id);
 }

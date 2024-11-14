@@ -22,6 +22,14 @@ namespace BookManagementWPFApp
         public UserWindow()
         {
             InitializeComponent();
+            tb_userName.Text = Application.Current.Properties["UserName"].ToString();
         }
+        private void navigate_login(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
+
     }
 }

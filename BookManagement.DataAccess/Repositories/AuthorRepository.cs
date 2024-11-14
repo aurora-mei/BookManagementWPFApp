@@ -42,10 +42,10 @@ namespace BookManagement.DataAccess.Repositories
             var authorToUpdate = db.Authors.FirstOrDefault(x => x.AuthorID.Equals(author.AuthorID));
             if (authorToUpdate != null)
             {
-                authorToUpdate.authorName = author.authorName;
-                authorToUpdate.authorDOB = author.authorDOB;
-                authorToUpdate.authorEmail = author.authorEmail;
-                authorToUpdate.authorImageURL = author.authorImageURL;
+                authorToUpdate.AuthorName = author.AuthorName;
+                authorToUpdate.AuthorDOB = author.AuthorDOB;
+                authorToUpdate.AuthorEmail = author.AuthorEmail;
+                authorToUpdate.AuthorImageURL = author.AuthorImageURL;
                 db.SaveChanges();
             }
             else
