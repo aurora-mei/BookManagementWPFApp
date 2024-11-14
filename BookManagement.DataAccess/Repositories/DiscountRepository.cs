@@ -6,19 +6,19 @@ public class DiscountRepository : IDiscountRepository
 {
 	public List<Discount> GetListDiscounts()
 	{
-		var db = new BookManagementDbContext();
+		using  var db = new BookManagementDbContext();
 		return db.Discounts.ToList();
 	}
 
 	public void AddDiscount(Discount discount)
 	{
-		var db = new BookManagementDbContext();
+		using  var db = new BookManagementDbContext();
 		db.Discounts.Add(discount);
 	}
 
 	public void UpdateDiscount(Discount discount)
 	{
-		var db = new BookManagementDbContext();
+		using  var db = new BookManagementDbContext();
 		var discountToUpdate = db.Discounts.FirstOrDefault(d => d.DiscountID.Equals(discount.DiscountID));
 		if (discountToUpdate != null)
 		{
@@ -35,7 +35,7 @@ public class DiscountRepository : IDiscountRepository
 
 	public void DeleteDiscount(int id)
 	{
-		var db = new BookManagementDbContext();
+		using  var db = new BookManagementDbContext();
 		var discountToDelete = db.Discounts.FirstOrDefault(d => d.DiscountID.Equals(id));
 		if (discountToDelete != null)
 		{

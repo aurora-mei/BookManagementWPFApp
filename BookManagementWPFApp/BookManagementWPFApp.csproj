@@ -12,6 +12,7 @@
     <None Remove="bookDarkgreen.png" />
     <None Remove="bookThumbnail.jpg" />
     <None Remove="download %289%29.jpg" />
+    <None Remove="e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,9 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="bookDarkgreen.png" />
-    <Resource Include="bookThumbnail.jpg" />
     <Resource Include="download (9).jpg" />
+    <Resource Include="e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookManagement.DataAccess\BookManagement.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>

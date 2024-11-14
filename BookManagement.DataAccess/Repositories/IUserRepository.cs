@@ -8,6 +8,7 @@ public interface IUserRepository
 	void AddUser(User user);
 	void UpdateUser(User user);
 	void DeleteUser(int id);
-	User Login(string username);
+	 public string Login(string email, string password);
+	public User GetCustomerByEmail(string email);
 }
 
