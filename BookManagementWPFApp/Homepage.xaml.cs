@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BookManagementWPFApp
 {
     /// <summary>
-    /// Interaction logic for Homepage.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class Homepage : Page
+    public partial class HomePage : Page
     {
-        public Homepage()
+        public HomePage()
         {
             InitializeComponent();
         }

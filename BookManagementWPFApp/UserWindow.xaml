@@ -49,9 +49,7 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                     </TabControl.Background>
                     <TabItem HorizontalContentAlignment="Left" Cursor="Hand" Header="Homepage" Width="200" Background="Gray"
                              HorizontalAlignment="Left">
-                        <Frame >
-                           
-                        </Frame>
+                        <Frame Source="HomePage.xaml" />
                     </TabItem>
                 </TabControl>
             </materialDesign:Card>
