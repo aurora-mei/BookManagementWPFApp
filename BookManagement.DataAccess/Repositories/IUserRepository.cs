@@ -10,3 +10,4 @@ public interface IUserRepository
 	void DeleteUser(int id);
 	User Login(string username);
 }
+

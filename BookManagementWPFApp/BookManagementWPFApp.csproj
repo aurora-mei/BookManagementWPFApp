@@ -9,9 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bookDarkgreen.png" />
+    <None Remove="bookThumbnail.jpg" />
+    <None Remove="download %289%29.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="3.1.0" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="bookDarkgreen.png" />
+    <Resource Include="bookThumbnail.jpg" />
+    <Resource Include="download (9).jpg" />
   </ItemGroup>
 
 </Project>
