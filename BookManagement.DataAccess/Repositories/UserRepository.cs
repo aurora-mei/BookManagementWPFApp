@@ -60,3 +60,4 @@ public class UserRepository : IUserRepository
 		return db.Users.FirstOrDefault(u => u.Username == username);
 	}
 }
+
