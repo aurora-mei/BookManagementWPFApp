@@ -17,7 +17,9 @@ FontFamily="{DynamicResource MaterialDesignFont}"
        Style="{StaticResource MaterialDesignWindow}"
         Title="PaymentWindow" Height="450" Width="800">
     <Grid>
-        <Label Content="TEST PAYMENT" HorizontalAlignment="Center" Margin="0,35,0,0" VerticalAlignment="Top"/>
-        <Button Name="btn_payClick" Content="Click here to pay" HorizontalAlignment="Center" Margin="0,342,0,0" VerticalAlignment="Top" Click="btn_payClick_Click"/>
+        <Label Content="TEST PAYMENT" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top"/>
+        <Button Name="btn_payClick" Content="Click here to pay" HorizontalAlignment="Left" Margin="195,322,0,0" VerticalAlignment="Top" Click="btn_payClick_Click"/>
+        <Button Name="btn_confirmBtn" Content="Check order status" HorizontalAlignment="Left" Height="32" Margin="425,322,0,0" VerticalAlignment="Top" Width="160" Click="btn_confirmBtn_Click" Background="#FFE64141"/>
+        <DataGrid Name="dgr_temp" HorizontalAlignment="Center" Height="180" Margin="0,69,0,0" VerticalAlignment="Top" Width="780" d:ItemsSource="{d:SampleData ItemCount=5}"/>
     </Grid>
 </Window>

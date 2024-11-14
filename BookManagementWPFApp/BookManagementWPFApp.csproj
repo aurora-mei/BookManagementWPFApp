@@ -41,7 +41,6 @@
   <ItemGroup>
     <Folder Include="Images\" />
     <Folder Include="Books\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
