@@ -51,6 +51,14 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                              HorizontalAlignment="Left">
                         <Frame Source="HomePage.xaml" />
                     </TabItem>
+                    <TabItem HorizontalContentAlignment="Left" Cursor="Hand" Header="My borrowed books" Width="200" Background="Gray"
+          HorizontalAlignment="Left">
+                        <Frame Source="MyBorrowed.xaml" />
+                    </TabItem>
+                    <TabItem HorizontalContentAlignment="Left" Cursor="Hand" Header="My order history" Width="200" Background="Gray"
+          HorizontalAlignment="Left">
+                        <Frame Source="MyOrder.xaml" />
+                    </TabItem>
                 </TabControl>
             </materialDesign:Card>
         </StackPanel>

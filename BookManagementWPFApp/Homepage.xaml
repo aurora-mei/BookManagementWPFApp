@@ -5,10 +5,40 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookManagementWPFApp"
       mc:Ignorable="d" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="HomePage">
+      Title="HomePage" WindowWidth="800">
 
     <Grid>
-        
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="1"/>
+                <GradientStop Color="#FFA6A9A2" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ScrollViewer>
+            <StackPanel>
+            <StackPanel Width="750" Height="200" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,0,0">
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg"/>
+                </StackPanel.Background>
+            </StackPanel>
+                <Expander Margin="20,10,10,0"  HorizontalAlignment="Stretch" >
+                    <Expander.Header>
+                        <TextBlock FontSize="16" FontWeight="DemiBold" Name="tb_currentOrder" Text="Current Order"
+            VerticalAlignment="Center" Margin="0,0,10,0" Foreground="#FF1A1A1A"  />
+                    </Expander.Header>
+                    <DataGrid Margin="20,10,40,20" Height="auto" Name="dg_rooms"
+               materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+               materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+               CanUserAddRows="False" IsReadOnly="True"
+               CanUserSortColumns="False" AutoGenerateColumns="False">
+
+                    </DataGrid>
+                </Expander>
+                <StackPanel Name="sp_bookCards">
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

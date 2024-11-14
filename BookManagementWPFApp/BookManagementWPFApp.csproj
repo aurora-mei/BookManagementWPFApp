@@ -12,18 +12,22 @@
     <None Remove="bookDarkgreen.png" />
     <None Remove="bookThumbnail.jpg" />
     <None Remove="download %289%29.jpg" />
+    <None Remove="e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="3.1.0" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="bookDarkgreen.png" />
-    <Resource Include="bookThumbnail.jpg" />
     <Resource Include="download (9).jpg" />
+    <Resource Include="e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
   </ItemGroup>
 
 </Project>

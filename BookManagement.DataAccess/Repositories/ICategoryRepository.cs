@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookManagement.DataAccess.Repositories
 {
-    internal class ICategoryRepository
+    public class ICategoryRepository
     {
     }
 }
