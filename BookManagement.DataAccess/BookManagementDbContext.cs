@@ -11,7 +11,7 @@ namespace BookManagement.DataAccess
 {
     public class BookManagementDbContext:DbContext
     {
-        public BookManagementDbContext(DbContextOptions<BookManagementDbContext> options) : base(options)
+        public BookManagementDbContext()
         {
 
         }
@@ -36,6 +36,9 @@ namespace BookManagement.DataAccess
             modelBuilder.Entity<Discount>().HasKey(d => d.DiscountID);
             modelBuilder.Entity<Loan>().HasKey(l => l.LoanID);
             modelBuilder.Entity<LoanExtension>().HasKey(le => le.LoanItemID);
+            modelBuilder.Entity<Order>().HasKey(d => d.OrderID);
+            modelBuilder.Entity<OrderItem>().HasKey(d => new { d.OrderID,d.BookID});
+            modelBuilder.Entity<User>().HasKey(d => d.UserID);
 
             modelBuilder.Entity<Order>().HasOne(o => o.User).WithMany(u => u.Orders).HasForeignKey(o => o.UserID);
             modelBuilder.Entity<OrderItem>().HasOne(oi => oi.Order).WithMany(o => o.OrderItems).HasForeignKey(oi => oi.OrderID);

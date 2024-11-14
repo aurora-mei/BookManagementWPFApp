@@ -9,6 +9,7 @@ namespace BookManagement.BusinessObjects
 {
     public class OrderItem
     {
+        
         public int BookID{ get; set; }
         public int OrderID{ get; set; }
         public int Quantity{ get; set; }
