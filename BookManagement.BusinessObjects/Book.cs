@@ -21,11 +21,11 @@ namespace BookManagement.BusinessObjects
         public int? DiscountID { get; set; }
         public string? BookPDFLink { get; set; }
         public string BookImages { get; set; }
-        public virtual Category Category { get; set; }
+        public virtual Category? Category { get; set; }
         public virtual Author Author { get; set; }
-        public virtual Discount Discount { get; set; }
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
-        public virtual ICollection<Loan> Loans { get; set; }
+        public virtual Discount? Discount { get; set; }
+        public virtual ICollection<OrderItem>? OrderItems { get; set; }
+        public virtual ICollection<Loan>? Loans { get; set; }
 
     }
 }

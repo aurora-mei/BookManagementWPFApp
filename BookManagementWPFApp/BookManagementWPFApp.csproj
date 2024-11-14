@@ -23,6 +23,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+    <PackageReference Include="PayPalServerSDK" Version="0.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookManagement.BusinessObjects\BookManagement.BusinessObjects.csproj" />
+    <ProjectReference Include="..\BookManagement.DataAccess\BookManagement.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +40,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookManagement.DataAccess\BookManagement.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Folder Include="Books\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Credentials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

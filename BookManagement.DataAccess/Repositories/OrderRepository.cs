@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using BookManagement.BusinessObjects;
 using Microsoft.EntityFrameworkCore;
 using Util;
@@ -11,6 +12,21 @@ public class OrderRepository : IOrderRepository
 		var db = new BookManagementDbContext();
 		return db.Orders.Include(x=>x.OrderItems).ThenInclude(x=>x.Book).Include(x=>x.User).ToList();
 	}
+    public async Task<Order?> GetOrderAsync(Expression<Func<Order, bool>>? predicate = null)
+    {
+        await using var db = new BookManagementDbContext();
+        return await db.Orders
+            .Where(predicate == null ? null : predicate)
+            .Include(o => o.OrderItems)
+            .ThenInclude(o => o.Book) // Include the Book
+            .ThenInclude(b => b.Author) // Include the Author from Book
+            .Include(o => o.OrderItems)
+            .ThenInclude(o => o.Book) // Include the Book again
+            .ThenInclude(b => b.Category) // Include the Category from Book
+            .Include(o => o.User)
+            .FirstOrDefaultAsync();
+    }
+    
 
 	public void AddOrder(Order order)
 	{
