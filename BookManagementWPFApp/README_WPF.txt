@@ -1,5 +1,5 @@
 ﻿Vào mỗi window cần sử dụng thì thêm dòng này vào đầu file xaml:{
-  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 TextElement.FontWeight="Regular"
 TextElement.FontSize="13"
