@@ -55,7 +55,7 @@ namespace BookManagement.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     UserID = table.Column<int>(type: "int", nullable: false)
@@ -70,7 +70,7 @@ namespace BookManagement.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.UserID);
+                    table.PrimaryKey("PK_Users", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -116,7 +116,7 @@ namespace BookManagement.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
                     OrderID = table.Column<int>(type: "int", nullable: false)
@@ -129,11 +129,11 @@ namespace BookManagement.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.OrderID);
+                    table.PrimaryKey("PK_Orders", x => x.OrderID);
                     table.ForeignKey(
-                        name: "FK_Order_User_UserID",
+                        name: "FK_Orders_Users_UserID",
                         column: x => x.UserID,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -163,15 +163,15 @@ namespace BookManagement.DataAccess.Migrations
                         principalColumn: "BookID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Loans_User_UserID",
+                        name: "FK_Loans_Users_UserID",
                         column: x => x.UserID,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItem",
+                name: "OrderItems",
                 columns: table => new
                 {
                     BookID = table.Column<int>(type: "int", nullable: false),
@@ -181,17 +181,17 @@ namespace BookManagement.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItem", x => new { x.OrderID, x.BookID });
+                    table.PrimaryKey("PK_OrderItems", x => new { x.OrderID, x.BookID });
                     table.ForeignKey(
-                        name: "FK_OrderItem_Books_BookID",
+                        name: "FK_OrderItems_Books_BookID",
                         column: x => x.BookID,
                         principalTable: "Books",
                         principalColumn: "BookID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderItem_Order_OrderID",
+                        name: "FK_OrderItems_Orders_OrderID",
                         column: x => x.OrderID,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "OrderID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -248,14 +248,14 @@ namespace BookManagement.DataAccess.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_UserID",
-                table: "Order",
-                column: "UserID");
+                name: "IX_OrderItems_BookID",
+                table: "OrderItems",
+                column: "BookID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItem_BookID",
-                table: "OrderItem",
-                column: "BookID");
+                name: "IX_Orders_UserID",
+                table: "Orders",
+                column: "UserID");
         }
 
         /// <inheritdoc />
@@ -265,19 +265,19 @@ namespace BookManagement.DataAccess.Migrations
                 name: "LoanExtensions");
 
             migrationBuilder.DropTable(
-                name: "OrderItem");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
                 name: "Loans");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Books");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Authors");

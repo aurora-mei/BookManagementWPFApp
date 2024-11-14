@@ -21,6 +21,9 @@ namespace BookManagement.DataAccess
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Loan> Loans { get; set; }
         public DbSet<LoanExtension> LoanExtensions { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory)

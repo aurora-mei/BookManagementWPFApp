@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookManagement.DataAccess.Migrations
 {
     [DbContext(typeof(BookManagementDbContext))]
-    [Migration("20241114081430_initial")]
+    [Migration("20241114082635_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -242,7 +242,7 @@ namespace BookManagement.DataAccess.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("BookManagement.BusinessObjects.OrderItem", b =>
@@ -263,7 +263,7 @@ namespace BookManagement.DataAccess.Migrations
 
                     b.HasIndex("BookID");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("BookManagement.BusinessObjects.User", b =>
@@ -301,7 +301,7 @@ namespace BookManagement.DataAccess.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BookManagement.BusinessObjects.Book", b =>
