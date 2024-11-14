@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookManagement.DataAccess.Migrations
 {
     [DbContext(typeof(BookManagementDbContext))]
-    [Migration("20241114082635_initial")]
-    partial class initial
+    [Migration("20241114144252_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
