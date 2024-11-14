@@ -23,5 +23,14 @@ namespace BookManagementWPFApp
         {
             InitializeComponent();
         }
+
+        private void btn_signUp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void tb_logIn_MouseLeftButtonDown(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,4 +1,6 @@
+using System.Linq.Expressions;
 using BookManagement.BusinessObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookManagement.DataAccess.Repositories;
 
@@ -7,7 +9,13 @@ public class LoanRepository : ILoanRepository
 	public List<Loan> ListLoan()
 	{
 		var db = new BookManagementDbContext();
-		return db.Loans.ToList();
+		return db.Loans.Include(l => l.Book).Include(l => l.User).ToList();
+	}
+
+	public List<Loan> GetLoan(Expression<Func<Loan, bool>> predicate)
+	{
+		var db = new BookManagementDbContext();
+		return db.Loans.Where(predicate).Include(l => l.Book).Include(l => l.User).ToList();
 	}
 
 	public void AddLoan(Loan loan)
@@ -30,7 +38,6 @@ public class LoanRepository : ILoanRepository
 			existingLoan.ReturnDate = loan.ReturnDate;
 			existingLoan.DueDate = loan.DueDate;
 			existingLoan.FineAmount = loan.FineAmount;
-			existingLoan.Bookmark = loan.Bookmark;
 			
 			db.SaveChanges();
 		}

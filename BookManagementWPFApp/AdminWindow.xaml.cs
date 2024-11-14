@@ -23,5 +23,6 @@ namespace BookManagementWPFApp
         {
             InitializeComponent();
         }
+        private void navigate_logOut(object sender, RoutedEventArgs e){}
     }
 }
