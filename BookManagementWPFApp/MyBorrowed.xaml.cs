@@ -32,7 +32,11 @@ namespace BookManagementWPFApp
             InitializeComponent();
             _bookRepository = new BookRepository();
             _mapper = new MyMapper();
-            LoadBorrowedBooks();
+            this.Loaded += RefreshData;
+        }
+        public void RefreshData(object sender, RoutedEventArgs e)
+        {
+            LoadBorrowedBooks(); 
         }
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -58,14 +62,16 @@ namespace BookManagementWPFApp
             ic_books.ItemsSource = new ObservableCollection<BookVM>(bookVMs).ToList<BookVM>();
         }
 
-        private void Btn_read_OnClick(object sender, RoutedEventArgs e)
+        public void Btn_read_OnClick(object sender, RoutedEventArgs e)
         {
-            var book = new Book();
-            if (sender is Button b) {
-                book = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
+            if (sender is Button button)
+            {
+                int bookID = int.Parse(button.Tag.ToString());
+                var book = _bookRepository.GetBookById(bookID);
+                var readWindow = new ReadWindow(book);
+                readWindow.ShowDialog();
             }
-            var readWindow = new ReadWindow(book);
-            readWindow.ShowDialog();
         }
+
     }
 }

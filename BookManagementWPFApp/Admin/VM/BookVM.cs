@@ -30,7 +30,7 @@ namespace BookManagementWPFApp.Admin.VM
         public string? authorEmail { get; set; }
 
         // *Discount
-        public int DiscountID { get; set; }
-        public double discountValue { get; set; }
+        public int? DiscountID { get; set; }
+        public double? discountValue { get; set; }
     }
 }

@@ -111,6 +111,7 @@ namespace BookManagementWPFApp
             myOrderWindow.Show();
         }
 
+
         private void btn_addCart_Click(object sender, RoutedEventArgs e)
         {
             //check xem co order pending nao khong
@@ -185,26 +186,32 @@ namespace BookManagementWPFApp
             var currentUser = _userRepository.GetUser(u => u.UserID == currentUserId);
             if (book == null || currentUser == null) return;
             var currentBookLoans = _loanRepository.GetLoan(l => l.BookID == book.BookID);
+            var userLoan = currentBookLoans.FirstOrDefault(l => l.UserID == currentUserId);
+            if (userLoan != null)
+            {
+                MessageBox.Show("You have already loan this book");
+                return;
+            }
             switch (currentBookLoans.Count)
             {
                 case < 5:
                     {
-                        var newLoan = new Loan
-                        {
-                            BookID = book.BookID,
-                            UserID = currentUserId,
-                            BorrowDate = DateTime.Now,
-                            DueDate = DateTime.Now.AddDays(5),
-                            Status = LoanStatusConstant.Borrowed,
-                            FineAmount = book.Price * 25 / 100
-                        };
-                        _loanRepository.AddLoan(newLoan);
-                        break;
-                    }
+                        BookID = book.BookID,
+                        UserID = currentUserId,
+                        BorrowDate = DateTime.Now,
+                        DueDate = DateTime.Now.AddDays(5),
+                        Status = LoanStatusConstant.Borrowed,
+                        FineAmount = book.Price * 25 / 100
+                    };
+                    _loanRepository.AddLoan(newLoan);
+                    MessageBox.Show("Borrowed book successfully! Please remember to it will be automatically returned in 5 days");
+                    break;
+                }
                 case >= 5 when currentBookLoans[0].DueDate < DateTime.Now:
                     currentBookLoans[0].UserID = currentUserId;
                     currentBookLoans[0].BorrowDate = DateTime.Now;
                     currentBookLoans[0].DueDate = DateTime.Now.AddDays(5);
+                    MessageBox.Show("Borrowed book successfully! Please remember to it will be automatically returned in 5 days");
                     break;
                 case >= 5 when currentBookLoans[0].DueDate >= DateTime.Now:
                     var waitLoan = new Loan
@@ -217,6 +224,7 @@ namespace BookManagementWPFApp
                         FineAmount = book.Price * 25 / 100
                     };
                     _loanRepository.AddLoan(waitLoan);
+                    MessageBox.Show("Borrowed book successfully! Please remember to it will be automatically returned in 5 days");
                     break;
             }
         }

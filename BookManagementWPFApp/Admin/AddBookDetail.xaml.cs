@@ -102,7 +102,7 @@ namespace BookManagementWPFApp.Admin
             cb_Category.SelectedValuePath = "CategoryID";
             var authors = _authorRepository.GetListAuthors();
             cb_Author.ItemsSource = authors;
-            cb_Author.DisplayMemberPath = "authorName";
+            cb_Author.DisplayMemberPath = "AuthorName";
             cb_Author.SelectedValuePath = "AuthorID";
             var discounts = _discountRepository.GetListDiscounts();
             cb_Discount.ItemsSource = discounts;

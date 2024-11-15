@@ -24,5 +24,9 @@ namespace BookManagementWPFApp
             }
         }
 
+        /*private void TabItem_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _myBorrowedPage.RefreshData();
+        }*/
     }
 }
