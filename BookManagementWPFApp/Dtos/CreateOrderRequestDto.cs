@@ -24,9 +24,15 @@
         public class Breakdown
         {
             public Item_total item_total { get; set; }
+            public ShippingFee shipping { get; set; }
         }
 
         public class Item_total
+        {
+            public string currency_code { get; set; }
+            public string value { get; set; }
+        }
+        public class ShippingFee
         {
             public string currency_code { get; set; }
             public string value { get; set; }

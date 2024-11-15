@@ -26,32 +26,33 @@ public class BookRepository : IBookRepository
 		db.SaveChanges();
 	}
 
-	public void UpdateBook(Book book)
-	{
-		using  var db = new BookManagementDbContext();
-		var bookToUpdate = db.Books.FirstOrDefault(b => b.BookID.Equals(book.BookID));
-		if (bookToUpdate != null)
-		{
-			bookToUpdate.Title = book.Title;
-			bookToUpdate.AuthorID = book.AuthorID;
-			bookToUpdate.Price = book.Price;
-			bookToUpdate.Pages = book.Pages;
-			bookToUpdate.Quantity = book.Quantity;
-			bookToUpdate.PublishDate = book.PublishDate;
-			bookToUpdate.Description = book.Description;
-			bookToUpdate.CategoryID = book.CategoryID;
-			bookToUpdate.Language = book.Language;
-			bookToUpdate.DiscountID = book.DiscountID;
-			bookToUpdate.BookPDFLink = book.BookPDFLink;
-			bookToUpdate.BookImages = book.BookImages;
-
-			db.SaveChanges();
-		}
-		else
-		{
-			throw new Exception("Book not found");
-		}
-	}
+    public void UpdateBook(Book book)
+    {
+        var db = new BookManagementDbContext();
+        var bookToUpdate = db.Books.FirstOrDefault(b => b.BookID.Equals(book.BookID));
+        if (bookToUpdate != null)
+        {
+            bookToUpdate.Title = book.Title;
+            bookToUpdate.AuthorID = book.AuthorID;
+            bookToUpdate.Price = book.Price;
+            bookToUpdate.Pages = book.Pages;
+            bookToUpdate.Quantity = book.Quantity;
+            bookToUpdate.PublishDate = book.PublishDate;
+            bookToUpdate.Description = book.Description;
+            bookToUpdate.CategoryID = book.CategoryID;
+            bookToUpdate.Language = book.Language;
+            bookToUpdate.DiscountID = book.DiscountID;
+            bookToUpdate.BookPDFLink = book.BookPDFLink;
+            bookToUpdate.BookImages = book.BookImages;
+            bookToUpdate.VisitedNumber = book.VisitedNumber;
+            db.Books.Update(bookToUpdate);
+            db.SaveChanges();
+        }
+        else
+        {
+            throw new Exception("Book not found");
+        }
+    }
 
 	public void DeleteBook(int id)
 	{
