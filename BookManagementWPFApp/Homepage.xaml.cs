@@ -43,7 +43,7 @@ namespace BookManagementWPFApp
             _userRepository = new UserRepository();
             _loanRepository = new LoanRepository();
             LoadBooks();
-            LoadPendingOrder();
+            // LoadPendingOrder();
         }
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -70,7 +70,7 @@ namespace BookManagementWPFApp
             ic_books.ItemsSource = new ObservableCollection<BookVM>(bookVMs).ToList<BookVM>();
         }
 
-        private  void LoadPendingOrder()
+        /*private  void LoadPendingOrder()
         {
             var currentUserId = int.Parse(Application.Current.Properties["UserID"].ToString());
             var hasOrderPending =  _orderRepository.GetOrder(x => x.UserID == currentUserId && x.Status == OrderStatusConstant.Pending);
@@ -99,7 +99,7 @@ namespace BookManagementWPFApp
                 ic_orderItems.ItemsSource = new ObservableCollection<OrderItemVM>(OrderItemVMs).ToList<OrderItemVM>();
                 tb_totalPrice.Text ="Total: "+PendingOrder.TotalPrice.ToString("C");
             }
-        }
+        }*/
         private void btn_addCart_Click(object sender, RoutedEventArgs e)
         {
             //check xem co order pending nao khong
@@ -116,7 +116,7 @@ namespace BookManagementWPFApp
                     Quantity = 1
                 });
             }
-            LoadPendingOrder();
+            // LoadPendingOrder();
         }
         private void icon_deleteOrderItem_Click(object sender, RoutedEventArgs e)
         {
@@ -147,6 +147,12 @@ namespace BookManagementWPFApp
             var currentUser = _userRepository.GetUser(u => u.UserID == currentUserId);
             if (book == null || currentUser == null) return;
             var currentBookLoans = _loanRepository.GetLoan(l => l.BookID == book.BookID);
+            var userLoan = currentBookLoans.FirstOrDefault(l => l.UserID == currentUserId);
+            if (userLoan != null)
+            {
+                MessageBox.Show("You have already loan this book");
+                return;
+            }
             switch (currentBookLoans.Count)
             {
                 case < 5:
@@ -161,12 +167,14 @@ namespace BookManagementWPFApp
                         FineAmount = book.Price * 25 / 100
                     };
                     _loanRepository.AddLoan(newLoan);
+                    MessageBox.Show("Borrowed book successfully! Please remember to it will be automatically returned in 5 days");
                     break;
                 }
                 case >= 5 when currentBookLoans[0].DueDate < DateTime.Now:
                     currentBookLoans[0].UserID = currentUserId;
                     currentBookLoans[0].BorrowDate = DateTime.Now;
                     currentBookLoans[0].DueDate = DateTime.Now.AddDays(5);
+                    MessageBox.Show("Borrowed book successfully! Please remember to it will be automatically returned in 5 days");
                     break;
                 case >= 5 when currentBookLoans[0].DueDate >= DateTime.Now:
                     var waitLoan = new Loan
@@ -179,6 +187,7 @@ namespace BookManagementWPFApp
                         FineAmount = book.Price * 25 / 100
                     };
                     _loanRepository.AddLoan(waitLoan);
+                    MessageBox.Show("Borrowed book successfully! Please remember to it will be automatically returned in 5 days");
                     break;
             }
         }
