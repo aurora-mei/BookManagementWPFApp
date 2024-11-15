@@ -1,0 +1,30 @@
+﻿<Window x:Class="BookManagementWPFApp.BookListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookManagementWPFApp"
+        mc:Ignorable="d"
+          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+TextElement.FontWeight="Regular"
+TextElement.FontSize="13"
+TextOptions.TextFormattingMode="Ideal"
+TextOptions.TextRenderingMode="Auto"
+Background="{DynamicResource MaterialDesignPaper}"
+FontFamily="{DynamicResource MaterialDesignFont}"
+       WindowStartupLocation="CenterScreen"
+       Style="{StaticResource MaterialDesignWindow}"
+        Title="BookListWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="Book list" HorizontalAlignment="Center" Height="29" Margin="0,10,0,0" VerticalAlignment="Top" Width="184" HorizontalContentAlignment="Center"/>
+        <DataGrid Name="dgr_books" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="48,44,48,250"/>
+        <StackPanel HorizontalAlignment="Left" Margin="48,210,0,0" Orientation="Vertical" VerticalAlignment="Top">
+            <Label Content="Enter amount of book to buy" Margin="0,0,0,6"/>
+            <TextBox x:Name="txt_amount" Height="35" TextWrapping="Wrap" Text="" Width="190"/>
+        </StackPanel>
+        <Button Name="btn_addToCart"  Content="Add to cart" HorizontalAlignment="Left" Margin="245,367,0,0" VerticalAlignment="Top" Click="btn_addToCart_Click"/>
+        <Button Name="btn_viewOrders" Content="View my orders" HorizontalAlignment="Left" Margin="467,367,0,0" VerticalAlignment="Top" Click="btn_viewOrders_Click" Background="#FFA72C2C"/>
+
+    </Grid>
+</Window>

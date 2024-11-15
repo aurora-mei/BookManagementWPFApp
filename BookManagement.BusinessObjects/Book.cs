@@ -21,6 +21,8 @@ namespace BookManagement.BusinessObjects
         public int? DiscountID { get; set; }
         public string BookPDFLink { get; set; }
         public string BookImages { get; set; }
+        // This number will be used for statistics only
+        public int VisitedNumber { get; set; } = 0;
         public virtual Category? Category { get; set; }
         public virtual Author Author { get; set; }
         public virtual Discount? Discount { get; set; }

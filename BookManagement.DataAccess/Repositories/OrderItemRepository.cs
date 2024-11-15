@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.ComTypes;
 using BookManagement.BusinessObjects;
 
 namespace BookManagement.DataAccess.Repositories;
@@ -12,8 +13,13 @@ public class OrderItemRepository : IOrderItemRepository
 
 	public void AddOrderItem(OrderItem orderItem)
 	{
-		var db = new BookManagementDbContext();
+		using var db = new BookManagementDbContext();
 		db.OrderItems.Add(orderItem);
+		// Calculate for related order as well:
+		var targetOrder = db.Orders.FirstOrDefault(o => o.OrderID == orderItem.OrderID);
+		if (targetOrder == null) throw new Exception("WARNING ORDER IS NULL FOR THIS ORDER ITEM");
+		targetOrder.TotalPrice += orderItem.Price;
+		db.SaveChanges();
 	}
 
 	public void UpdateOrderItem(OrderItem orderItem)
