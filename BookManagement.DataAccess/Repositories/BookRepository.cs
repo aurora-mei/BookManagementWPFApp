@@ -10,7 +10,7 @@ public class BookRepository : IBookRepository
 	{
 		using  var db = new BookManagementDbContext();
 		return db.Books.Include(x => x.Author).Include(x => x.Category)
-			.Include(x => x.OrderItems).Include(x => x.Loans).Include(x => x.Discount).ToList();
+			.Include(x => x.OrderItems).Include(x => x.Loans).ToList();
 	}
 	public Book? GetBookById(int id)
 	{

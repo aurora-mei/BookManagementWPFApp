@@ -58,17 +58,10 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                                       materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                                       materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                                       CanUserAddRows="False" IsReadOnly="True"
-                                      CanUserSortColumns="False" AutoGenerateColumns="False" SelectionChanged="dg_books_SelectionChanged"
+                                      CanUserSortColumns="False" AutoGenerateColumns="False"
                                       >
                     <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Thumbnail" DisplayIndex="0">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding BookImages}" Width="100" Height="150" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Book ID" Binding="{Binding BookID}" Visibility="Collapsed" />
+                        <DataGridTextColumn Header="Book ID" Binding="{Binding BookID}" Visibility="Collapsed" />
                         <DataGridTextColumn Header="Room Type ID" Binding="{Binding RoomTypeID}" Visibility="Collapsed" />
                         <DataGridTextColumn Header="Title" Binding="{Binding Title}"
                                                         Width="*" />
@@ -86,13 +79,22 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                         <DataGridTemplateColumn Header="Actions" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                                                             VerticalAlignment="Center">
-                                    <materialDesign:PackIcon Name="icon_deleteRoom" Margin="0,0,5,0"
+                                        <materialDesign:PackIcon Name="icon_updateRoom" Margin="0,0,5,0"
+                                                                             Cursor="Hand" Kind="CircleEditOutline"
+                                                                             Height="20" Width="20"
+                                                                             VerticalAlignment="Center"
+                                                                          >
+                                            <materialDesign:PackIcon.ToolTip>
+                                                <ToolTip Content="Update room information" />
+                                            </materialDesign:PackIcon.ToolTip>
+                                        </materialDesign:PackIcon>
+                                        <materialDesign:PackIcon Name="icon_deleteRoom" Margin="0,0,5,0"
                                                                              Cursor="Hand" Kind="DeleteCircleOutline"
                                                                              Height="20" Width="20"
                                                                              VerticalAlignment="Center"
-                                                             MouseLeftButtonDown="icon_deleteRoom_MouseDoubleClick">
+                                                                          >
                                             <materialDesign:PackIcon.ToolTip>
                                                 <ToolTip Content="Delete this room" />
                                             </materialDesign:PackIcon.ToolTip>

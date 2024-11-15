@@ -43,7 +43,7 @@ namespace BookManagementWPFApp
             _userRepository = new UserRepository();
             _loanRepository = new LoanRepository();
             LoadBooks();
-            //LoadPendingOrder();
+            LoadPendingOrder();
         }
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -70,8 +70,36 @@ namespace BookManagementWPFApp
             ic_books.ItemsSource = new ObservableCollection<BookVM>(bookVMs).ToList<BookVM>();
         }
 
-        
-
+        private  void LoadPendingOrder()
+        {
+            var currentUserId = int.Parse(Application.Current.Properties["UserID"].ToString());
+            var hasOrderPending =  _orderRepository.GetOrder(x => x.UserID == currentUserId && x.Status == OrderStatusConstant.Pending);
+            if (hasOrderPending != null)
+            {
+                PendingOrder = hasOrderPending;
+            }
+            else
+            {
+                PendingOrder = new Order()
+                {
+                    UserID = currentUserId
+                };
+                _orderRepository.AddOrder(PendingOrder);
+            }
+            tb_pendingOrderID.Text = PendingOrder.OrderID.ToString();
+            var OrderItemVMs = new List<OrderItemVM>();
+            if (PendingOrder.OrderItems.Any())
+            {
+                foreach (var orderItem in PendingOrder.OrderItems)
+                {
+                    var orderItemVM = new OrderItemVM();
+                    _mapper.Map(orderItem, orderItemVM);
+                    OrderItemVMs.Add(orderItemVM);
+                }
+                ic_orderItems.ItemsSource = new ObservableCollection<OrderItemVM>(OrderItemVMs).ToList<OrderItemVM>();
+                tb_totalPrice.Text ="Total: "+PendingOrder.TotalPrice.ToString("C");
+            }
+        }
         private void btn_addCart_Click(object sender, RoutedEventArgs e)
         {
             //check xem co order pending nao khong
@@ -88,7 +116,7 @@ namespace BookManagementWPFApp
                     Quantity = 1
                 });
             }
-            //LoadPendingOrder();
+            LoadPendingOrder();
         }
         private void icon_deleteOrderItem_Click(object sender, RoutedEventArgs e)
         {
