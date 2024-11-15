@@ -78,7 +78,8 @@
                                             materialDesign:ButtonAssist.CornerRadius="5" Tag="{Binding BookID}"
                                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                                             Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30"
-                                            Click="Btn_read_OnClick">
+                                            Click="Btn_read_OnClick"
+                                            IsEnabled="True">
                                         <TextBlock Text="Read this book" Foreground="Black"
                                                    materialDesign:ShadowAssist.Darken="True" />
                                     </Button>
