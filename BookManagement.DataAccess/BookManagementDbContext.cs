@@ -84,9 +84,9 @@ namespace BookManagement.DataAccess
                     UserID = 2,
                     BookID = 1,
                     Status = LoanStatusConstant.Borrowed,
-                    BorrowDate = DateTime.Parse("10/10/2024"),
-                    DueDate = DateTime.Parse("10/15/2024"),
-                    ReturnDate = DateTime.Parse("10/14/2024"),
+                    BorrowDate = new DateTime(2024, 10, 10), //nam, thang, ngay
+                    DueDate = new DateTime(2024, 10, 15),
+                    ReturnDate = new DateTime(2024, 10, 14),
                 },
                  new Loan()
                  {
@@ -94,9 +94,9 @@ namespace BookManagement.DataAccess
                      UserID = 2,
                      BookID = 2,
                      Status = LoanStatusConstant.Borrowed,
-                     BorrowDate = DateTime.Parse("10/10/2024"),
-                     DueDate = DateTime.Parse("10/19/2024"),
-                     ReturnDate = DateTime.Parse("10/11/2024"),
+                     BorrowDate = new DateTime(2024, 10, 10),
+                     DueDate = new DateTime(2024, 10, 19),
+                     ReturnDate = new DateTime(2024, 10, 11),
                  });
             var orderObj = new Order();
         modelBuilder.Entity<Order>().HasData(
@@ -105,7 +105,7 @@ namespace BookManagement.DataAccess
                   OrderID = 1,
                    UserID = 2,
                    ShippingMethod = "Express",
-                   OrderDate = DateTime.Parse("10/15/2024"),
+                   OrderDate = new DateTime(2024,10,15), //nam, thang, ngay
                    Status = OrderStatusConstant.Completed,
                    TotalPrice = orderObj.CalTotalPrice()
                },
@@ -114,7 +114,7 @@ namespace BookManagement.DataAccess
                     OrderID = 2,
                     UserID = 2,
                     ShippingMethod = "Express",
-                    OrderDate = DateTime.Parse("10/29/2024"),
+                    OrderDate = new DateTime(2024,10,29), //nam, thang, ngay
                     Status = OrderStatusConstant.Completed,
                     TotalPrice = orderObj.CalTotalPrice()
                 },
@@ -123,7 +123,7 @@ namespace BookManagement.DataAccess
                       OrderID = 3,
                       UserID = 2,
                       ShippingMethod = "Express",
-                      OrderDate = DateTime.Parse("10/29/2024"),
+                      OrderDate = new DateTime(2024, 10, 29), //nam, thang, ngay
                       Status = OrderStatusConstant.Processing,
                       TotalPrice = orderObj.CalTotalPrice()
                   });
@@ -200,7 +200,7 @@ namespace BookManagement.DataAccess
                    Title = "Doraemon",
                    Price = 12.4,
                    Pages = 123,
-                   PublishDate = DateTime.Parse("12/10/2024"),
+                   PublishDate = new DateTime(2024, 12, 10), //nam, thang, ngay
                    CategoryID = 1,
                    AuthorID = 1,
                    Language = "English",
@@ -213,7 +213,7 @@ namespace BookManagement.DataAccess
                    Title = "Pikachu",
                    Price = 12.4,
                    Pages = 123,
-                   PublishDate = DateTime.Parse("10/23/2024"),//tháng/ngày/nam
+                   PublishDate = new DateTime(2024, 10, 23), //nam, thang, ngay
                    CategoryID = 1,
                    AuthorID = 1,
                    Language = "English",
@@ -225,7 +225,7 @@ namespace BookManagement.DataAccess
                      Title = "7 vien ngoc rong",
                      Price = 12.4,
                      Pages = 123,
-                     PublishDate = DateTime.Parse("12/10/2024"),
+                     PublishDate = new DateTime(2024,10,12),//nam, thang, ngay
                      CategoryID = 1,
                      AuthorID = 1,
                      Language = "English",
@@ -238,7 +238,7 @@ namespace BookManagement.DataAccess
                     Title = "Batman",
                     Price = 12.4,
                     Pages = 123,
-                    PublishDate = DateTime.Parse("10/23/2024"),//tháng/ngày/nam
+                    PublishDate = new DateTime(2024, 10, 23), //nam, thang, ngay
                     CategoryID = 1,
                     AuthorID = 1,
                     Language = "English",

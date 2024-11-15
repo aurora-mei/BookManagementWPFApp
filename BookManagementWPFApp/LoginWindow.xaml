@@ -5,92 +5,93 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookManagementWPFApp"
         mc:Ignorable="d"
-               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-TextElement.FontWeight="Regular"
-TextElement.FontSize="13"
-TextOptions.TextFormattingMode="Ideal"
-TextOptions.TextRenderingMode="Auto"
-Background="{DynamicResource MaterialDesignPaper}"
-FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         Title="LoginWindow" Height="450" Width="800">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="White" Offset="1"/>
-                <GradientStop Color="#FFA6A9A2" Offset="0"/>
+                <GradientStop Color="White" Offset="1" />
+                <GradientStop Color="#FFA6A9A2" Offset="0" />
             </LinearGradientBrush>
         </Grid.Background>
-        <Border 
-    HorizontalAlignment="Left" 
-    VerticalAlignment="Center" 
-    Width="290" 
-    Height="320" 
-    Margin="70,0,0,0" 
-    CornerRadius="20">
+        <Border
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Width="290"
+            Height="320"
+            Margin="70,0,0,0"
+            CornerRadius="20">
             <Border.Background>
-                <ImageBrush ImageSource="/download (9).jpg"/>
+                <ImageBrush ImageSource="/Images/download (9).jpg" />
             </Border.Background>
 
         </Border>
 
 
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left"  Width="340" Height="284" Margin="400,0,0,0">
-            <TextBlock Margin="0,0,0,0" FontWeight="Bold" 
-Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-Text="Book Management" Foreground="#FF1A1A1A" Width="205" />
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Width="340" Height="284" Margin="400,0,0,0">
+            <TextBlock Margin="0,0,0,0" FontWeight="Bold"
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                       Text="Book Management" Foreground="#FF1A1A1A" Width="205" />
             <StackPanel Margin="0,5,0,0">
                 <TextBlock Margin="0,0,0,5"
-  Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
-  Text="Email" FontWeight="Bold" />
+                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                           Text="Email" FontWeight="Bold" />
                 <TextBox Name="txt_email"
-    VerticalAlignment="Top"
-    materialDesign:HintAssist.Hint="abc@gmail.com"
-    Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                         VerticalAlignment="Top"
+                         materialDesign:HintAssist.Hint="abc@gmail.com"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}">
                     <TextBox.Text>
                         <Binding
-        Path="Text2"
-        UpdateSourceTrigger="PropertyChanged">
+                            Path="Text2"
+                            UpdateSourceTrigger="PropertyChanged">
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
             </StackPanel>
             <StackPanel Margin="0,10,0,0">
-                <TextBlock Margin="0,0,0,5" 
-Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
-Text="Password" FontWeight="Bold" />
+                <TextBlock Margin="0,0,0,5"
+                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                           Text="Password" FontWeight="Bold" />
                 <PasswordBox Name="txt_password"
-VerticalContentAlignment="Bottom"
-materialDesign:HintAssist.Hint="Password"
-materialDesign:TextFieldAssist.HasClearButton="True"
-IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
-Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
+                             VerticalContentAlignment="Bottom"
+                             materialDesign:HintAssist.Hint="Password"
+                             materialDesign:TextFieldAssist.HasClearButton="True"
+                             IsEnabled="{Binding ElementName=RevealPasswordOutlinedEnabled, Path=IsChecked}"
+                             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}" />
             </StackPanel>
             <Button Name="btn_logIn" Margin="0,15,0,0"
-    materialDesign:ButtonAssist.CornerRadius="10"
-    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-    ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Background="#FF1A1A1A" BorderBrush="{x:Null}" Height="45" Click="btn_logIn_Click" Foreground="White">
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Background="#FF1A1A1A"
+                    BorderBrush="{x:Null}" Height="45" Click="btn_logIn_Click" Foreground="White">
                 <TextBlock
-      Text="Log in" Foreground="White" materialDesign:ShadowAssist.Darken="True"/>
+                    Text="Log in" Foreground="White" materialDesign:ShadowAssist.Darken="True" />
             </Button>
             <StackPanel Margin="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock 
-        Style="{StaticResource MaterialDesignSubtitle2TextBlock}" 
-        Margin="5" 
-        Text="Don't have an account?" 
-        FontWeight="Bold" />
+                <TextBlock
+                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                    Margin="5"
+                    Text="Don't have an account?"
+                    FontWeight="Bold" />
 
                 <!-- Clickable TextBlock as a link -->
                 <TextBlock Name="tb_signUp"
-           Style="{StaticResource MaterialDesignSubtitle2TextBlock}" 
-           Margin="5" 
-           Text="Sign up for BM" 
-           FontWeight="Bold" 
-           TextDecorations="Underline" 
-           Cursor="Hand"
-           MouseLeftButtonDown="tb_signUp_MouseLeftButtonDown" />
+                           Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
+                           Margin="5"
+                           Text="Sign up for BM"
+                           FontWeight="Bold"
+                           TextDecorations="Underline"
+                           Cursor="Hand"
+                           MouseLeftButtonDown="tb_signUp_MouseLeftButtonDown" />
 
             </StackPanel>
         </StackPanel>

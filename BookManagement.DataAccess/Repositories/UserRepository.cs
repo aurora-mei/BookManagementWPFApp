@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using BookManagement.BusinessObjects;
 using Util;
 
@@ -9,6 +10,12 @@ public class UserRepository : IUserRepository
 	{
 		using var db = new BookManagementDbContext();
 		return db.Users.ToList();
+	}
+
+	public User GetUser(Expression<Func<User, bool>> predicate)
+	{
+		using var db = new BookManagementDbContext();
+		return db.Users.FirstOrDefault(predicate);
 	}
 
 	public void AddUser(User user)

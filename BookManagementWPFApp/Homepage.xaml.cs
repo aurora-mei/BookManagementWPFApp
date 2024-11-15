@@ -30,6 +30,8 @@ namespace BookManagementWPFApp
         private readonly IOrderItemRepository _orderItemRepository;
         private readonly IBookRepository _bookRepository;
         private readonly IMyMapper _mapper;
+        private readonly IUserRepository _userRepository;
+        private readonly ILoanRepository _loanRepository;
         public Order PendingOrder{get;set;}
         public HomePage()
         {
@@ -38,6 +40,8 @@ namespace BookManagementWPFApp
             _mapper = new MyMapper();
             _orderRepository = new OrderRepository();
             _orderItemRepository = new OrderItemRepository();
+            _userRepository = new UserRepository();
+            _loanRepository = new LoanRepository();
             LoadBooks();
             LoadPendingOrder();
         }
@@ -84,7 +88,7 @@ namespace BookManagementWPFApp
             }
             tb_pendingOrderID.Text = PendingOrder.OrderID.ToString();
             var OrderItemVMs = new List<OrderItemVM>();
-            if (PendingOrder.OrderItems.Count() > 0)
+            if (PendingOrder.OrderItems.Any())
             {
                 foreach (var orderItem in PendingOrder.OrderItems)
                 {
@@ -114,20 +118,6 @@ namespace BookManagementWPFApp
             }
             LoadPendingOrder();
         }
-        private void nud_updateOrderItem_Click(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-           
-            if (sender is NumericUpDown nud && nud.DataContext is OrderItemVM orderItemVM)
-            {
-                _orderItemRepository.UpdateOrderItem(new OrderItem()
-                {
-                    OrderID = orderItemVM.OrderID,
-                    BookID = orderItemVM.BookID,
-                    Quantity = nud.Value,
-                });
-                //tb_quantity.Text = "x" + nud.Value;
-            }
-        }
         private void icon_deleteOrderItem_Click(object sender, RoutedEventArgs e)
         {
             if(sender is PackIcon pi && pi.DataContext is OrderItemVM orderItemVM)
@@ -147,6 +137,51 @@ namespace BookManagementWPFApp
             }
         }
 
+        private void Btn_borrow_OnClick(object sender, RoutedEventArgs e)
+        {
+            var book = new Book();
+            if (sender is Button b) {
+                book = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
+            }
+            var currentUserId = int.Parse(Application.Current.Properties["UserID"].ToString());
+            var currentUser = _userRepository.GetUser(u => u.UserID == currentUserId);
+            if (book == null || currentUser == null) return;
+            var currentBookLoans = _loanRepository.GetLoan(l => l.BookID == book.BookID);
+            switch (currentBookLoans.Count)
+            {
+                case < 5:
+                {
+                    var newLoan = new Loan
+                    {
+                        BookID = book.BookID,
+                        UserID = currentUserId,
+                        BorrowDate = DateTime.Now,
+                        DueDate = DateTime.Now.AddDays(5),
+                        Status = LoanStatusConstant.Borrowed,
+                        FineAmount = book.Price * 25 / 100
+                    };
+                    _loanRepository.AddLoan(newLoan);
+                    break;
+                }
+                case >= 5 when currentBookLoans[0].DueDate < DateTime.Now:
+                    currentBookLoans[0].UserID = currentUserId;
+                    currentBookLoans[0].BorrowDate = DateTime.Now;
+                    currentBookLoans[0].DueDate = DateTime.Now.AddDays(5);
+                    break;
+                case >= 5 when currentBookLoans[0].DueDate >= DateTime.Now:
+                    var waitLoan = new Loan
+                    {
+                        BookID = book.BookID,
+                        UserID = currentUserId,
+                        BorrowDate = DateTime.Now,
+                        DueDate = DateTime.Now.AddDays(5),
+                        Status = LoanStatusConstant.Waiting,
+                        FineAmount = book.Price * 25 / 100
+                    };
+                    _loanRepository.AddLoan(waitLoan);
+                    break;
+            }
         }
+    }
     
 }

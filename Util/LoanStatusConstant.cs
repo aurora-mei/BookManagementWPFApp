@@ -11,5 +11,6 @@ namespace Util
         public static string Borrowed = "Borrowed";
         public static string Returned = "Returned";
         public static string Overdue = "Overdue";
+        public static string Waiting = "Waiting";
     }
 }
