@@ -1,0 +1,30 @@
+﻿<Window x:Class="BookManagementWPFApp.PaymentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookManagementWPFApp"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+TextElement.FontWeight="Regular"
+TextElement.FontSize="13"
+TextOptions.TextFormattingMode="Ideal"
+TextOptions.TextRenderingMode="Auto"
+Background="{DynamicResource MaterialDesignPaper}"
+FontFamily="{DynamicResource MaterialDesignFont}"
+       WindowStartupLocation="CenterScreen"
+       mc:Ignorable="d"
+       Style="{StaticResource MaterialDesignWindow}"
+        Title="PaymentWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="TEST PAYMENT" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top"/>
+        <Button Name="btn_payClick" Content="Click here to pay" HorizontalAlignment="Left" Margin="159,372,0,0" VerticalAlignment="Top" Click="btn_payClick_Click"/>
+        <Button Name="btn_confirmBtn" Content="Check order status" HorizontalAlignment="Center" Height="32" Margin="0,372,0,0" VerticalAlignment="Top" Width="160" Click="btn_confirmBtn_Click" Background="#FFE64141"/>
+        <DataGrid Name="dgr_temp" HorizontalAlignment="Center" Height="180" Margin="0,69,0,0" VerticalAlignment="Top" Width="780" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <ComboBox Name="cb_delivery"  HorizontalAlignment="Center" Height="40" Margin="0,294,0,0" VerticalAlignment="Top" Width="320"/>
+        <Label Content="Choose delivery type" HorizontalAlignment="Left" Height="25" Margin="240,269,0,0" VerticalAlignment="Top" Width="315"/>
+        <Label Name="txt_orderId" Content="Order id: " HorizontalAlignment="Left" Height="28" Margin="10,41,0,0" VerticalAlignment="Top" Width="170" FontWeight="Bold"/>
+        <Label Name="txt_orderStatus" Content="Order status:" HorizontalAlignment="Left" Height="23" Margin="510,41,0,0" VerticalAlignment="Top" Width="280"/>
+        <Button Name="btn_goBack" Content="Go back" HorizontalAlignment="Left" Height="32" Margin="545,372,0,0" VerticalAlignment="Top" Width="105" Click="btn_goBack_Click"/>
+    </Grid>
+</Window>

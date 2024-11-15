@@ -42,11 +42,14 @@ namespace BookManagementWPFApp.Admin
                 Price = b.Price,
                 Quantity = b.Quantity,
                 PublishDate = b.PublishDate,
+                CategoryID = b.CategoryID,
                 CategoryName = b.Category.CategoryName,
                 Description = b.Description,
-                authorName = b.Author.authorName,
+                AuthorID = b.AuthorID,
+                authorName = b.Author.AuthorName,
                 Language = b.Language,
-                discountValue = b.Discount.discountValue,
+                DiscountID = b.Discount?.DiscountID,
+                discountValue = b.Discount?.discountValue ?? null,
                 BookImages = b.BookImages
                 
             }).ToList();
@@ -55,17 +58,7 @@ namespace BookManagementWPFApp.Admin
 
         private void btn_Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (dg_Data.SelectedItem == null)
-            {
-                MessageBox.Show("Please select a book to delete");
-                return;
-            }
-            else
-            {
-                var book = dg_Data.SelectedItem as BookVM;
-                _bookRepository.DeleteBook(book.BookID);
-                ListBook();
-            }
+            
         }
 
         private void btn_Upload_Click(object sender, RoutedEventArgs e)
@@ -75,17 +68,7 @@ namespace BookManagementWPFApp.Admin
 
         private void dg_Data_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dg_Data.SelectedItem == null)
-            {
-                return;
-            }
-            else if (dg_Data.SelectedItem != null)
-            {
-                var selectedBook = dg_Data.SelectedItem as BookVM;
-                var bookDetail = new BookDetail(selectedBook);
-
-                NavigationService.Navigate(bookDetail);
-            }
+            
         }
     }
 }

@@ -13,5 +13,7 @@ namespace BookManagement.DataAccess.Repositories
         void AddBook(Book book);
         void UpdateBook(Book book);
         void DeleteBook(int id);
+        public Book? GetBookById(int id);
+        List<Book> GetBorrowedBooksOfUser(int userId);
     }
 }

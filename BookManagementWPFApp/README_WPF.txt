@@ -10,6 +10,5 @@ FontFamily="{DynamicResource MaterialDesignFont}"
        WindowStartupLocation="CenterScreen"
        mc:Ignorable="d"
        Style="{StaticResource MaterialDesignWindow}"
-
 }
 

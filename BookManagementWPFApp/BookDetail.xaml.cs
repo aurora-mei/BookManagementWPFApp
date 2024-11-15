@@ -1,5 +1,6 @@
 ﻿using BookManagement.BusinessObjects;
 using BookManagement.DataAccess.Repositories;
+using BookManagementWPFApp.Admin;
 using BookManagementWPFApp.Admin.VM;
 using Microsoft.Win32;
 using System;
@@ -17,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookManagementWPFApp.Admin
+namespace BookManagementWPFApp
 {
     /// <summary>
     /// Interaction logic for BookDetail.xaml
@@ -26,7 +27,7 @@ namespace BookManagementWPFApp.Admin
     {
 
         private BookVM _BookVM;
-        private readonly ICatgoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly IDiscountRepository _discountRepository;
         private readonly IBookRepository _bookRepository;
@@ -66,7 +67,7 @@ namespace BookManagementWPFApp.Admin
             cb_Category.SelectedValuePath = "CategoryID";
             var authors = _authorRepository.GetListAuthors();
             cb_Author.ItemsSource = authors;
-            cb_Author.DisplayMemberPath = "authorName";
+            cb_Author.DisplayMemberPath = "AuthorName";
             cb_Author.SelectedValuePath = "AuthorID";
             var discounts = _discountRepository.GetListDiscounts();
             cb_Discount.ItemsSource = discounts;
@@ -104,7 +105,10 @@ namespace BookManagementWPFApp.Admin
 
             _bookRepository.UpdateBook(newBook);
             MessageBox.Show("Book updated successfully!");
-            LoadBookDetail();
+            Home home = new Home();
+            NavigationService.Navigate(home);
         }
+
+
     }
 }

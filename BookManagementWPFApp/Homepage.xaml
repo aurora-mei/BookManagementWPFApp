@@ -1,14 +1,290 @@
-﻿<Page x:Class="BookManagementWPFApp.Homepage"
+﻿<Page x:Class="BookManagementWPFApp.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:BookManagementWPFApp"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Homepage">
+      mc:Ignorable="d"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      d:DesignHeight="800" d:DesignWidth="1600"
+      Title="HomePage">
 
     <Grid>
-        
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="1" />
+                <GradientStop Color="#FFF0F0F0" Offset="0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBlock FontSize="16" FontWeight="DemiBold" Name="tb_pendingOrderID" Visibility="Collapsed" />
+        <ScrollViewer Margin="20,10,10,0">
+            <StackPanel>
+                <StackPanel Height="300" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/Images/Homepage.jpg" />
+                    </StackPanel.Background>
+                </StackPanel>
+                <Expander Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                    <Expander.Header>
+                        <TextBlock FontSize="16" FontWeight="DemiBold" Text="Current Order"
+                                   VerticalAlignment="Center" Margin="0,0,10,0" Foreground="#FF1A1A1A" />
+                    </Expander.Header>
+                    <Border Margin="0,0,0,30" CornerRadius="15" BorderBrush="Black" BorderThickness="0.6"
+                            Background="White">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Order Header -->
+                            <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Margin="10">
+                                <TextBlock Text="{Binding OrderTitle}" Foreground="#FF1A1A1A" FontWeight="Bold"
+                                           FontSize="17" />
+                            </StackPanel>
+
+                            <!-- Order Items -->
+                            <ItemsControl Name="ic_orderItems" Grid.Row="1">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="1" HorizontalAlignment="Stretch" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <!-- Each Order Item -->
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <materialDesign:Card Margin="10" HorizontalAlignment="Stretch"
+                                                             VerticalAlignment="Center"
+                                                             Style="{StaticResource MaterialDesignOutlinedCard}">
+                                            <Grid Margin="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="70" />
+                                                    <ColumnDefinition Width="300" />
+                                                    <ColumnDefinition Width="250" />
+                                                    <ColumnDefinition Width="250" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Image Grid.Column="0" Margin="0" Height="100" Width="70"
+                                                       Stretch="UniformToFill"
+                                                       Source="{Binding BookImages}" />
+                                                <StackPanel Grid.Column="1" Margin="20,10,0,0">
+                                                    <TextBlock Text="{Binding Title}" Foreground="Black" FontSize="15" />
+                                                    <TextBlock x:Name="tb_quantity" Text="{Binding FormattedQuantity}"
+                                                               Foreground="Black" FontSize="15" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="2" Margin="20,10,0,0">
+                                                    <Border Height="40" CornerRadius="5" Width="122"
+                                                            BorderBrush="Black"
+                                                            BorderThickness="0.6"
+                                                            Margin="5,5,10,5"
+                                                            materialDesign:ElevationAssist.Elevation="Dp4">
+                                                        <materialDesign:NumericUpDown x:Name="nud_updateOrderItem"
+                                                            VerticalAlignment="Center" Minimum="1"
+                                                            Value="{Binding Quantity}">
+                                                            <materialDesign:NumericUpDown.IncreaseContent>
+                                                                <Border
+                                                                    BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                                                    BorderThickness="1"
+                                                                    CornerRadius="20">
+                                                                    <materialDesign:PackIcon Kind="ArrowUp" />
+                                                                </Border>
+                                                            </materialDesign:NumericUpDown.IncreaseContent>
+                                                            <materialDesign:NumericUpDown.DecreaseContent>
+                                                                <Border
+                                                                    BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                                                    BorderThickness="1"
+                                                                    CornerRadius="20">
+                                                                    <materialDesign:PackIcon Kind="ArrowDown" />
+                                                                </Border>
+                                                            </materialDesign:NumericUpDown.DecreaseContent>
+                                                        </materialDesign:NumericUpDown>
+                                                    </Border>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="3" Margin="30,0,0,0"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                    <TextBlock Text="{Binding FormattedPrice}" Foreground="#FFC95B5B"
+                                                               FontSize="15" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="4" Margin="30,0,0,0"
+                                                            VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                    <materialDesign:PackIcon Kind="DeleteCircleOutline" Height="20"
+                                                                             Width="20" Name="icon_deleteRoomType"
+                                                                             MouseLeftButtonDown="icon_deleteOrderItem_Click"
+                                                                             VerticalAlignment="Center"
+                                                                             Foreground="#FF1A6E5B">
+                                                        <materialDesign:PackIcon.ToolTip>
+                                                            <ToolTip Content="Delete order item" />
+                                                        </materialDesign:PackIcon.ToolTip>
+                                                    </materialDesign:PackIcon>
+                                                </StackPanel>
+                                            </Grid>
+                                        </materialDesign:Card>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <!-- Order Total -->
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                                <TextBlock Name="tb_totalPrice"
+                                           HorizontalAlignment="Right" Foreground="#FF1A1A1A" FontWeight="Bold"
+                                           FontSize="15" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </Expander>
+                <!--<UniformGrid Name="ug_bookCards" Columns="4" HorizontalAlignment="Left">
+                    --><!-- Book Card 1 --><!--
+                    <materialDesign:Card Width="230" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+                         Cursor="Hand"
+         MouseDown="Card_MouseDown">
+                        <materialDesign:Card.Style>
+                            <Style TargetType="materialDesign:Card" BasedOn="{StaticResource MaterialDesignOutlinedCard}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <TranslateTransform Y="-3"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:Card.Style>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image Height="200" Stretch="UniformToFill" Source="/e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
+                            <StackPanel Grid.Row="1" Margin="8,10,8,0">
+                                <TextBlock Margin="0,0,0,10" FontWeight="Bold">Doraemon</TextBlock>
+                                <TextBlock x:Name="tb_price" VerticalAlignment="Center" Text="233.2$" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Margin="8" HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button Margin="0,10,10,5" Name="btn_borrow" materialDesign:ButtonAssist.CornerRadius="5"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
+                                    <TextBlock Text="Borrow" Foreground="Black" materialDesign:ShadowAssist.Darken="True" />
+                                </Button>
+                                <Button Margin="0,10,0,5" Name="btn_addCart" materialDesign:ButtonAssist.CornerRadius="5"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
+                                    <TextBlock Text="Add to cart" Foreground="Black" materialDesign:ShadowAssist.Darken="True" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    --><!-- Book Card 2 --><!--
+                    <materialDesign:Card Width="230" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+                         Style="{StaticResource MaterialDesignOutlinedCard}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image Height="200" Stretch="UniformToFill" Source="/e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
+                            <StackPanel Grid.Row="1" Margin="8,10,8,0">
+                                <TextBlock Margin="0,0,0,10" FontWeight="Bold">Doraemon</TextBlock>
+                                <TextBlock x:Name="tb_price2" VerticalAlignment="Center" Text="233.2$" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Margin="8" HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button Margin="0,10,10,5" Name="btn_borrow2" materialDesign:ButtonAssist.CornerRadius="5"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
+                                    <TextBlock Text="Borrow" Foreground="Black" materialDesign:ShadowAssist.Darken="True" />
+                                </Button>
+                                <Button Margin="0,10,0,5" Name="btn_addCart2" materialDesign:ButtonAssist.CornerRadius="5"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
+                                    <TextBlock Text="Add to cart" Foreground="Black" materialDesign:ShadowAssist.Darken="True" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    --><!-- Add more cards as needed --><!--
+                </UniformGrid>-->
+                <ItemsControl x:Name="ic_books">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="4" HorizontalAlignment="Left" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card Width="230" Margin="10" HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center" Cursor="Hand" Tag="{Binding BookID}"
+                                                 MouseDown="Card_MouseDown">
+                                <materialDesign:Card.Style>
+                                    <Style TargetType="materialDesign:Card"
+                                           BasedOn="{StaticResource MaterialDesignOutlinedCard}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <TranslateTransform Y="-3" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:Card.Style>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="200" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Height="200" Stretch="UniformToFill" Source="{Binding BookAvatar}" />
+
+                                    <StackPanel Grid.Row="1" Margin="8,10,8,0">
+                                        <TextBlock Margin="0,0,0,10" FontWeight="Bold" Text="{Binding Title}" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Price}"
+                                                   TextWrapping="Wrap" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="2" Margin="8" HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                        <Button Margin="0,10,10,5" Name="btn_borrow"
+                                                materialDesign:ButtonAssist.CornerRadius="5" Tag="{Binding BookID}"
+                                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30"
+                                                Click="Btn_borrow_OnClick">
+                                            <TextBlock Text="Borrow" Foreground="Black"
+                                                       materialDesign:ShadowAssist.Darken="True" />
+                                        </Button>
+                                        <Button Margin="0,10,0,5" Click="btn_addCart_Click" Name="btn_addCart"
+                                                materialDesign:ButtonAssist.CornerRadius="5" Tag="{Binding BookID}"
+                                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                                Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
+                                            <TextBlock Text="Add to cart" Foreground="Black"
+                                                       materialDesign:ShadowAssist.Darken="True" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
