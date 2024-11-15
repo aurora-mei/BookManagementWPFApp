@@ -195,6 +195,7 @@ namespace BookManagementWPFApp
             switch (currentBookLoans.Count)
             {
                 case < 5:
+                    var newLoan = new Loan
                     {
                         BookID = book.BookID,
                         UserID = currentUserId,
@@ -206,7 +207,7 @@ namespace BookManagementWPFApp
                     _loanRepository.AddLoan(newLoan);
                     MessageBox.Show("Borrowed book successfully! Please remember to it will be automatically returned in 5 days");
                     break;
-                }
+                
                 case >= 5 when currentBookLoans[0].DueDate < DateTime.Now:
                     currentBookLoans[0].UserID = currentUserId;
                     currentBookLoans[0].BorrowDate = DateTime.Now;
