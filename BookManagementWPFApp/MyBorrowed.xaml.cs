@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookManagement.BusinessObjects;
 using Util;
 
 namespace BookManagementWPFApp
@@ -55,6 +56,16 @@ namespace BookManagementWPFApp
                 bookVMs.Add(bookVm);
             }
             ic_books.ItemsSource = new ObservableCollection<BookVM>(bookVMs).ToList<BookVM>();
+        }
+
+        private void Btn_read_OnClick(object sender, RoutedEventArgs e)
+        {
+            var book = new Book();
+            if (sender is Button b) {
+                book = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
+            }
+            var readWindow = new ReadWindow(book);
+            readWindow.ShowDialog();
         }
     }
 }
