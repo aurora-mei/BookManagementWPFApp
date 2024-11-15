@@ -35,16 +35,14 @@ public class BookRepository : IBookRepository
 			bookToUpdate.Title = book.Title;
 			bookToUpdate.AuthorID = book.AuthorID;
 			bookToUpdate.Price = book.Price;
-			bookToUpdate.Pages = book.Pages;
 			bookToUpdate.Quantity = book.Quantity;
 			bookToUpdate.PublishDate = book.PublishDate;
 			bookToUpdate.Description = book.Description;
 			bookToUpdate.CategoryID = book.CategoryID;
 			bookToUpdate.Language = book.Language;
 			bookToUpdate.DiscountID = book.DiscountID;
-			bookToUpdate.BookPDFLink = book.BookPDFLink;
 			bookToUpdate.BookImages = book.BookImages;
-
+			db.Books.Update(bookToUpdate);
 			db.SaveChanges();
 		}
 		else
