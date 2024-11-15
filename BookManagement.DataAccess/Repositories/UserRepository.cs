@@ -1,4 +1,5 @@
 using BookManagement.BusinessObjects;
+using Util;
 
 namespace BookManagement.DataAccess.Repositories;
 
@@ -6,19 +7,22 @@ public class UserRepository : IUserRepository
 {
 	public List<User> ListUsers()
 	{
-		var db = new BookManagementDbContext();
+		using var db = new BookManagementDbContext();
 		return db.Users.ToList();
 	}
 
 	public void AddUser(User user)
 	{
-		var db = new BookManagementDbContext();
+		 using var db = new BookManagementDbContext();
+		user.UserStatus = UserStatusConstant.Active;
+		user.Role = RoleConstant.User;
 		db.Users.Add(user);
+		db.SaveChanges();
 	}
 
 	public void UpdateUser(User user)
 	{
-		var db = new BookManagementDbContext();
+		using var db = new BookManagementDbContext();
 		var userToUpdate = db.Users.FirstOrDefault(u => u.UserID.Equals(user.UserID));
 		if (userToUpdate != null)
 		{
@@ -41,7 +45,7 @@ public class UserRepository : IUserRepository
 
 	public void DeleteUser(int id)
 	{
-		var db = new BookManagementDbContext();
+		using var db = new BookManagementDbContext();
 		var user = db.Users.FirstOrDefault(u => u.UserID.Equals(id));
 		if (user != null)
 		{
@@ -54,10 +58,51 @@ public class UserRepository : IUserRepository
 		}
 	}
 
-	public User Login(string username)
+	public string Login(string email, string password)
 	{
-		var db = new BookManagementDbContext();
-		return db.Users.FirstOrDefault(u => u.Username == username);
+		if (AuthenticateAdmin(email, password))
+		{
+			return "Admin";
+		}
+
+		var resAuthenticateCustomer = AuthenticateCustomer(email, password);
+		if (resAuthenticateCustomer == 0)
+		{
+			return "Invalid";
+		}
+		else if (resAuthenticateCustomer == -1)
+		{
+			return "Banned";
+		}
+		return resAuthenticateCustomer.ToString();
+
+	}
+	public bool AuthenticateAdmin(string email, string password)
+	{
+        var user = GetCustomerByEmail(email);
+
+        if (user != null)
+        {
+           return user.Role.Equals(RoleConstant.Admin) && user.Password.Equals(password);
+        }
+		return false;
+    }
+
+	public int AuthenticateCustomer(string email, string password)
+	{
+		var user = GetCustomerByEmail(email);
+		if (user != null)
+		{
+			if (user.UserStatus == UserStatusConstant.Inactive) return -1;
+			if (user.Password.Equals(password)) return user.UserID;
+		}
+		return 0;
+	}
+
+	public User GetCustomerByEmail(string email)
+	{
+		using var db = new BookManagementDbContext();
+		return db.Users.FirstOrDefault(u => u.Email.Equals(email));
 	}
 }
 

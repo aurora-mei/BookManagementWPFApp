@@ -100,11 +100,11 @@ Text="Date of birth" FontWeight="Bold" />
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
             <!---login-->
-            <Button Margin="0,15,0,0" Name="btn_signUp"
+            <Button Margin="0,15,0,0" Name="btn_signUp" Click="btn_signUp_Click"
     materialDesign:ButtonAssist.CornerRadius="10"
     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
     Style="{StaticResource MaterialDesignRaisedDarkButton}"
-    ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Background="#FF1A1A1A" BorderBrush="{x:Null}" Height="45" Click="btn_signUp_Click">
+    ToolTip="MaterialDesignRaisedDarkButton with Round Corners" Background="#FF1A1A1A" BorderBrush="{x:Null}" Height="45" >
                 <TextBlock
       Text="Sign up" Foreground="White" materialDesign:ShadowAssist.Darken="True"/>
             </Button>
@@ -123,9 +123,9 @@ Margin="5"
 Text="Log in here" 
 FontWeight="Bold" 
 TextDecorations="Underline" 
-Cursor="Hand"
-MouseLeftButtonDown="tb_logIn_MouseLeftButtonDown" />
+Cursor="Hand" MouseLeftButtonDown="tb_logIn_MouseLeftButtonDown"
 
+/>
             </StackPanel>
         </StackPanel>
     </Grid>

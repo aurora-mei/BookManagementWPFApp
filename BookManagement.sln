@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManagement.DataAccess",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManagement.BusinessObjects", "BookManagement.BusinessObjects\BookManagement.BusinessObjects.csproj", "{5A05BAB0-5C9B-47E5-B138-213871C747C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util", "Util\Util.csproj", "{B00EFB8A-9F80-4EF1-8171-DDA721D0F065}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5A05BAB0-5C9B-47E5-B138-213871C747C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A05BAB0-5C9B-47E5-B138-213871C747C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A05BAB0-5C9B-47E5-B138-213871C747C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B00EFB8A-9F80-4EF1-8171-DDA721D0F065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00EFB8A-9F80-4EF1-8171-DDA721D0F065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00EFB8A-9F80-4EF1-8171-DDA721D0F065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00EFB8A-9F80-4EF1-8171-DDA721D0F065}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,5 +7,5 @@ public interface IOrderItemRepository
 	List<OrderItem> ListOrderItems();
 	void AddOrderItem(OrderItem orderItem);
 	void UpdateOrderItem(OrderItem orderItem);
-	void DeleteOrderItem(int id);
+	void DeleteOrderItem(OrderItem o);
 }

@@ -4,11 +4,11 @@
              xmlns:local="clr-namespace:BookManagementWPFApp"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:material="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-             xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-             StartupUri="Admin/Home.xaml">
-            <!-- StartupUri="MainWindow.xaml" -->
 
-<Application.Resources>
+             xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+             StartupUri="LoginWindow.xaml">
+   
+    <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="#FF1A1A1A" SecondaryColor="DarkKhaki" />
