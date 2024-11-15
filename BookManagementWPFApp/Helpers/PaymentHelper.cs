@@ -77,7 +77,7 @@ public class PaymentHelper
             {
                 currency = MyConstants.CURRENCY,
                 description =
-                    $"A {(orderItem.Book.Category != null ? orderItem.Book.Category.CategoryName : "")} book by {orderItem.Book.Author.authorName ?? ""}",
+                    $"A {(orderItem.Book.Category != null ? orderItem.Book.Category.CategoryName : "")} book by {orderItem.Book.Author.AuthorName ?? ""}",
                 name = orderItem.Book.Title,
                 quantity = orderItem.Quantity,
                 unit_amount = new CreateOrderRequestDto.Unit_amount()

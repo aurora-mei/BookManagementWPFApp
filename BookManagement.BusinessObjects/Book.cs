@@ -19,7 +19,7 @@ namespace BookManagement.BusinessObjects
         public int AuthorID { get; set; }
         public string Language { get; set; }
         public int? DiscountID { get; set; }
-        public string BookPDFLink { get; set; }
+        public string? BookPDFLink { get; set; }
         public string BookImages { get; set; }
         // This number will be used for statistics only
         public int VisitedNumber { get; set; } = 0;

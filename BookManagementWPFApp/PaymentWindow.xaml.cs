@@ -59,7 +59,7 @@ namespace BookManagementWPFApp
                 select new OrderDetailVM
                 {
                     OrderId = o.OrderID,
-                    Author = o.Book.Author.authorName,
+                    Author = o.Book.Author.AuthorName,
                     BookName = o.Book.Title,
                     Desc = o.Book.Description,
                     TotalPrice = o.Price,
