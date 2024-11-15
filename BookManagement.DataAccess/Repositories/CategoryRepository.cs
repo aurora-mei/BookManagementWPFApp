@@ -21,6 +21,7 @@ public class CategoryRepository : ICategoryRepository
 	{
 		using  var db = new BookManagementDbContext();
 		db.Categories.Add(category);
+		db.SaveChanges();
 	}
 
 	public void UpdateCategory(Category category)

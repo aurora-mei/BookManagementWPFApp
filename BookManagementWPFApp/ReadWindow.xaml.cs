@@ -23,7 +23,7 @@ namespace BookManagementWPFApp
         private const int GlobalScale = 2;
 
         private Rectangle destinationRectangle;
-       
+
         public ReadWindow(Book book)
         {
             InitializeComponent();
@@ -31,6 +31,7 @@ namespace BookManagementWPFApp
             DataContext = document;
             OnOpenFileClick(book.BookPDFLink);
         }
+
         //Open the book
         private void OnOpenFileClick(string bookLink)
         {
@@ -40,8 +41,10 @@ namespace BookManagementWPFApp
                 var document = new Document(new FileStream(bookLink, FileMode.Open, FileAccess.Read));
                 this.document.Document = document;
             }
+
             UpdatePageView();
         }
+
         private async void UpdatePageView()
         {
             // Show the "Loading..." message and disable UI elements
@@ -63,8 +66,10 @@ namespace BookManagementWPFApp
                     var desiredHeight = (int)page.Height * GlobalScale;
 
                     // I hate task
-                    var images = await Task.Run(() => page.RenderAsBytes(desiredWidth, desiredHeight, new RenderingSettings()));
-                    var bitmap = BitmapSource.Create(desiredWidth, desiredHeight, 72, 72, PixelFormats.Bgra32, null, images, desiredWidth * 4);
+                    var images = await Task.Run(() =>
+                        page.RenderAsBytes(desiredWidth, desiredHeight, new RenderingSettings()));
+                    var bitmap = BitmapSource.Create(desiredWidth, desiredHeight, 72, 72, PixelFormats.Bgra32, null,
+                        images, desiredWidth * 4);
 
                     PagesControl.Items.Add(bitmap);
                 }
@@ -77,6 +82,7 @@ namespace BookManagementWPFApp
                 ToolBar.Visibility = Visibility.Visible;
             }
         }
+
         //Zoom using slider value
         private void UpdateImageZoom()
         {
@@ -86,6 +92,7 @@ namespace BookManagementWPFApp
                 PagesControl.LayoutTransform = new ScaleTransform(slider.Value, slider.Value);
             }
         }
+
         private void UpdateViewLocation(int index)
         {
             if (index == 0)
@@ -93,6 +100,7 @@ namespace BookManagementWPFApp
                 PageScroller.ScrollToTop();
                 return;
             }
+
             //MessageBox.Show($"Item: {PagesControl.Items.Count} Index: {index}");
             //Take all the heights (scale with zoom) of the previous page and offset the scroller by that value
             var scale = this.ZoomSlider.Value;
@@ -105,6 +113,7 @@ namespace BookManagementWPFApp
 
             PageScroller.ScrollToVerticalOffset(upperHeight);
         }
+
         private void OnListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListView? listView = sender as ListView;
@@ -118,10 +127,12 @@ namespace BookManagementWPFApp
                 UpdateViewLocation(selectedIndex);
             }
         }
+
         private void OnExitClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
+
         // Jump to books mark of the book (if exist)
         private void OnBookmarkSelectionChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -129,9 +140,11 @@ namespace BookManagementWPFApp
             if (newValue != null)
             {
                 document.Document.Navigator.GoToBookmark(newValue);
-                destinationRectangle = newValue.GetDestinationRectangle((int)(document.Page.Width * GlobalScale), (int)(document.Page.Height * GlobalScale), null);
+                destinationRectangle = newValue.GetDestinationRectangle((int)(document.Page.Width * GlobalScale),
+                    (int)(document.Page.Height * GlobalScale), null);
             }
         }
+
         //Page navigation
         private void OnNavigationButtonClick(object sender, RoutedEventArgs e)
         {
@@ -142,6 +155,7 @@ namespace BookManagementWPFApp
             {
                 return;
             }
+
             switch ((string)source.CommandParameter)
             {
                 case "Next":
@@ -159,8 +173,10 @@ namespace BookManagementWPFApp
                 default:
                     return;
             }
+
             destinationRectangle = null;
         }
+
         private void OnZoomChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             UpdateImageZoom();

@@ -14,6 +14,7 @@ public class DiscountRepository : IDiscountRepository
 	{
 		using  var db = new BookManagementDbContext();
 		db.Discounts.Add(discount);
+		db.SaveChanges();
 	}
 
 	public void UpdateDiscount(Discount discount)

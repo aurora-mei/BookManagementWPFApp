@@ -30,7 +30,7 @@
             Margin="70,0,0,0"
             CornerRadius="20">
             <Border.Background>
-                <ImageBrush ImageSource="/download (9).jpg" />
+                <ImageBrush ImageSource="/Images/download (9).jpg" />
             </Border.Background>
 
         </Border>

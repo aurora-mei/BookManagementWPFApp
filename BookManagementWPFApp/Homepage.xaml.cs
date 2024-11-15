@@ -88,7 +88,7 @@ namespace BookManagementWPFApp
             }
             tb_pendingOrderID.Text = PendingOrder.OrderID.ToString();
             var OrderItemVMs = new List<OrderItemVM>();
-            if (PendingOrder.OrderItems.Count() > 0)
+            if (PendingOrder.OrderItems.Any())
             {
                 foreach (var orderItem in PendingOrder.OrderItems)
                 {

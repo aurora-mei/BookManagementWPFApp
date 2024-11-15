@@ -22,6 +22,7 @@ public class LoanRepository : ILoanRepository
 	{
 		var db = new BookManagementDbContext();
 		db.Loans.Add(loan);
+		db.SaveChanges();
 	}
 
 	public void UpdateLoan(Loan loan)

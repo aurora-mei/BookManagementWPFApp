@@ -13,6 +13,7 @@ namespace BookManagement.DataAccess.Repositories
         {
             using  var db = new BookManagementDbContext();
             db.Authors.Add(author);
+            db.SaveChanges();
         }
 
         public void DeleteAuthor(int id)

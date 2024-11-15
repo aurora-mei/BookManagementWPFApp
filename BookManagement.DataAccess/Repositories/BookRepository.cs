@@ -23,6 +23,7 @@ public class BookRepository : IBookRepository
 	{
 		using  var db = new BookManagementDbContext();
 		db.Books.Add(book);
+		db.SaveChanges();
 	}
 
 	public void UpdateBook(Book book)
