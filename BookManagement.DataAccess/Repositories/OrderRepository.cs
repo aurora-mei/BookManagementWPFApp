@@ -23,6 +23,9 @@ public class OrderRepository : IOrderRepository
             .Include(o => o.OrderItems)
             .ThenInclude(o => o.Book) // Include the Book again
             .ThenInclude(b => b.Category) // Include the Category from Book
+            .Include(o => o.OrderItems)
+            .ThenInclude(o => o.Book) // Include the Book
+            .ThenInclude(b => b.Discount)
             .Include(o => o.User)
             .FirstOrDefaultAsync();
     }
