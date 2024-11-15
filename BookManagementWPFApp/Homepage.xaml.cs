@@ -123,15 +123,15 @@ namespace BookManagementWPFApp
                 var selectedBook = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
                 if (selectedBook == null) throw new Exception("Please select a book");
                 var quantity = 1;
-                var discount = selectedBook.Discount;
+                // var discount = selectedBook.Discount;
                 var totalPrice = selectedBook.Price * quantity;
-                if (discount != null)
-                {
-                    // 5 quyen 20k => Giam 0.5 => moi quyen 10k
-                    var singleDiscountEachBook = selectedBook.Price * discount.discountValue;
-                    // 20k * 5 - (10k * 5)
-                    totalPrice = selectedBook.Price * quantity - singleDiscountEachBook * quantity;
-                }
+                // if (discount != null)
+                // {
+                //     // 5 quyen 20k => Giam 0.5 => moi quyen 10k
+                //     var singleDiscountEachBook = selectedBook.Price * discount.discountValue;
+                //     // 20k * 5 - (10k * 5)
+                //     totalPrice = selectedBook.Price * quantity - singleDiscountEachBook * quantity;
+                // }
                 Console.WriteLine(totalPrice);
                 // Add to our existing order
                 var orderItem = new OrderItem()
@@ -195,6 +195,7 @@ namespace BookManagementWPFApp
             switch (currentBookLoans.Count)
             {
                 case < 5:
+                    var newLoan = new Loan
                     {
                         BookID = book.BookID,
                         UserID = currentUserId,
@@ -206,7 +207,7 @@ namespace BookManagementWPFApp
                     _loanRepository.AddLoan(newLoan);
                     MessageBox.Show("Borrowed book successfully! Please remember to it will be automatically returned in 5 days");
                     break;
-                }
+                
                 case >= 5 when currentBookLoans[0].DueDate < DateTime.Now:
                     currentBookLoans[0].UserID = currentUserId;
                     currentBookLoans[0].BorrowDate = DateTime.Now;

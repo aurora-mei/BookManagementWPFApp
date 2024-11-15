@@ -8,7 +8,7 @@
         Title="MyOrderWindow" Height="450" Width="800">
     <Grid>
         <Label Content="My Orders" HorizontalAlignment="Center" Height="30" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <DataGrid Name="dgr_orders" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="28,62,28,155"/>
+        <DataGrid IsReadOnly="True" Name="dgr_orders" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="28,62,28,155"/>
         <Button Name="btn_payOrder" Content="Pay for this order" HorizontalAlignment="Center" Margin="0,337,0,0" VerticalAlignment="Top" Click="btn_payOrder_Click"/>
         <Button Name="btn_backToBooks" Content="Back to book list" HorizontalAlignment="Left" Margin="28,18,0,0" VerticalAlignment="Top" Click="btn_backToBooks_Click"/>
 

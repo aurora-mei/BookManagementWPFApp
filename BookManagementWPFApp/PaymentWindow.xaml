@@ -20,7 +20,7 @@ FontFamily="{DynamicResource MaterialDesignFont}"
         <Label Content="TEST PAYMENT" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top"/>
         <Button Name="btn_payClick" Content="Click here to pay" HorizontalAlignment="Left" Margin="159,372,0,0" VerticalAlignment="Top" Click="btn_payClick_Click"/>
         <Button Name="btn_confirmBtn" Content="Check order status" HorizontalAlignment="Center" Height="32" Margin="0,372,0,0" VerticalAlignment="Top" Width="160" Click="btn_confirmBtn_Click" Background="#FFE64141"/>
-        <DataGrid Name="dgr_temp" HorizontalAlignment="Center" Height="180" Margin="0,69,0,0" VerticalAlignment="Top" Width="780" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <DataGrid IsReadOnly="True" Name="dgr_temp" HorizontalAlignment="Center" Height="180" Margin="0,69,0,0" VerticalAlignment="Top" Width="780" d:ItemsSource="{d:SampleData ItemCount=5}"/>
         <ComboBox Name="cb_delivery"  HorizontalAlignment="Center" Height="40" Margin="0,294,0,0" VerticalAlignment="Top" Width="320"/>
         <Label Content="Choose delivery type" HorizontalAlignment="Left" Height="25" Margin="240,269,0,0" VerticalAlignment="Top" Width="315"/>
         <Label Name="txt_orderId" Content="Order id: " HorizontalAlignment="Left" Height="28" Margin="10,41,0,0" VerticalAlignment="Top" Width="170" FontWeight="Bold"/>

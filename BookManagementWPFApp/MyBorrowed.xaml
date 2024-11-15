@@ -67,13 +67,6 @@
 
                                 <StackPanel Grid.Row="2" Margin="8" HorizontalAlignment="Center"
                                             Orientation="Horizontal">
-                                    <Button Margin="0,10,10,5" Name="btn_borrow"
-                                            materialDesign:ButtonAssist.CornerRadius="5" Tag="{Binding BookID}"
-                                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                            Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
-                                        <TextBlock Text="Borrow" Foreground="Black"
-                                                   materialDesign:ShadowAssist.Darken="True" />
-                                    </Button>
                                     <Button Margin="0,10,0,5" Name="btn_read"
                                             materialDesign:ButtonAssist.CornerRadius="5" Tag="{Binding BookID}"
                                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
