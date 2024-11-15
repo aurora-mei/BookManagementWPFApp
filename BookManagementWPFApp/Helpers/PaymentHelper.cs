@@ -1,13 +1,13 @@
-﻿using System.Globalization;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using BookManagement.BusinessObjects;
+﻿using BookManagement.BusinessObjects;
 using BookManagement.DataAccess.Repositories;
 using BookManagementWPFApp.Constants;
 using BookManagementWPFApp.Dtos;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Globalization;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace BookManagementWPFApp.Helpers;
 
@@ -30,7 +30,7 @@ public class PaymentHelper
         _baseUrl = configuration["PAYPAL:BASEURL"];
         _authorizationURL = $"{_baseUrl}/v1/oauth2/token";
         createOrderURL = $"{_baseUrl}/v2/checkout/orders";
-        
+
     }
 
     public async Task<CreateOrderResponseDto> SendCreateOrderRequest(CreateOrderRequestDto createOrderRequestDto)
@@ -44,7 +44,7 @@ public class PaymentHelper
         var stringContent = new StringContent(JsonConvert.SerializeObject(createOrderRequestDto), Encoding.UTF8,
             "application/json");
         var responseMessage = await httpClient.PostAsync(createOrderURL, stringContent);
-        
+
         var responseString = await responseMessage.Content.ReadAsStringAsync();
         // responseMessage.EnsureSuccessStatusCode();
         var responseJson = JsonConvert.DeserializeObject<CreateOrderResponseDto>(responseString);
@@ -90,18 +90,28 @@ public class PaymentHelper
         // Convert VND to USD (No need to calculate for the discount here)
         var usdTotalPrice = order.TotalPrice / MyConstants.USD_DIFFERENCE;
         // Calculate the addresses of user first
-        var addresses = order.User.Address.Split(",");
+        var addresses = new string[2];
         string homeAddr = "";
         string cityAddr = "";
-        if (addresses.Length == 0)
+        if (order.User.Address != null)
         {
-            throw new Exception("Address is empty");
+            addresses = order.User.Address.Split(",");
+            if (addresses.Length == 0)
+            {
+                throw new Exception("Address is empty");
+            }
+            else if (addresses.Length > 1)
+            {
+                homeAddr = addresses[0];
+                cityAddr = addresses[1];
+            }
         }
-        else if (addresses.Length > 1)
+        else
         {
-            homeAddr = addresses[0];
-            cityAddr = addresses[1];
+            homeAddr = "Dai hoc FPT";
+            cityAddr = "Dai hoc FPT";
         }
+
         // Decide if user is using fast delivery or not
         bool isFastDelivery = order.ShippingMethod != null && !order.ShippingMethod.Equals("normal delivery", StringComparison.OrdinalIgnoreCase);
         var orderRequestDto = new CreateOrderRequestDto
@@ -162,10 +172,10 @@ public class PaymentHelper
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.access_token);
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        
+
         var confirmOrderURL = $"{_baseUrl}/v2/checkout/orders/{paypalOrderId}/capture";
         var response = await httpClient.PostAsync(confirmOrderURL, new StringContent("", Encoding.UTF8, "application/json"));
-        
+
         if (response.IsSuccessStatusCode)
         {
             var order = await orderRepository.GetOrderAsync(o => o.OrderID == orderId);
@@ -181,7 +191,7 @@ public class PaymentHelper
         }
         return false; // Something went wrong
     }
-    
+
 
     private async Task<AuthorizationResponseData> GetAuthorizationResponse()
     {

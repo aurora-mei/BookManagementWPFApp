@@ -1,22 +1,12 @@
 ﻿using BookManagement.BusinessObjects;
 using BookManagement.BusinessObjects.ViewModel;
 using BookManagement.DataAccess.Repositories;
+using BookManagementWPFApp.Constants;
 using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Util;
 
 namespace BookManagementWPFApp
@@ -32,7 +22,9 @@ namespace BookManagementWPFApp
         private readonly IMyMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly ILoanRepository _loanRepository;
-        public Order PendingOrder{get;set;}
+        public Order PendingOrder { get; set; }
+        private User _user;
+
         public HomePage()
         {
             InitializeComponent();
@@ -44,7 +36,11 @@ namespace BookManagementWPFApp
             _loanRepository = new LoanRepository();
             LoadBooks();
             LoadPendingOrder();
+            string userIdString = Application.Current.Properties["UserID"].ToString();
+            int userId = Int32.Parse(userIdString);
+            _user = _userRepository.GetUser(u => u.UserID == userId);
         }
+
         private void Card_MouseDown(object sender, MouseButtonEventArgs e)
         {
             // Sử dụng đúng kiểu Card từ MaterialDesignThemes.Wpf
@@ -67,13 +63,15 @@ namespace BookManagementWPFApp
                 _mapper.Map(book, bookVm);
                 bookVMs.Add(bookVm);
             }
+
             ic_books.ItemsSource = new ObservableCollection<BookVM>(bookVMs).ToList<BookVM>();
         }
 
-        private  void LoadPendingOrder()
+        private void LoadPendingOrder()
         {
             var currentUserId = int.Parse(Application.Current.Properties["UserID"].ToString());
-            var hasOrderPending =  _orderRepository.GetOrder(x => x.UserID == currentUserId && x.Status == OrderStatusConstant.Pending);
+            var hasOrderPending =
+                _orderRepository.GetOrder(x => x.UserID == currentUserId && x.Status == MyConstants.STATUS_NOT_PAID);
             if (hasOrderPending != null)
             {
                 PendingOrder = hasOrderPending;
@@ -82,13 +80,18 @@ namespace BookManagementWPFApp
             {
                 PendingOrder = new Order()
                 {
-                    UserID = currentUserId
+                    UserID = currentUserId,
+                    OrderDate = DateTime.Now,
+                    ShippingMethod = "Normal delivery",
+                    Status = MyConstants.STATUS_NOT_PAID,
+                    TotalPrice = 0, // Add later
                 };
                 _orderRepository.AddOrder(PendingOrder);
             }
+
             tb_pendingOrderID.Text = PendingOrder.OrderID.ToString();
             var OrderItemVMs = new List<OrderItemVM>();
-            if (PendingOrder.OrderItems.Any())
+            if (PendingOrder.OrderItems != null && PendingOrder.OrderItems.Count() > 0)
             {
                 foreach (var orderItem in PendingOrder.OrderItems)
                 {
@@ -97,9 +100,17 @@ namespace BookManagementWPFApp
                     OrderItemVMs.Add(orderItemVM);
                 }
                 ic_orderItems.ItemsSource = new ObservableCollection<OrderItemVM>(OrderItemVMs).ToList<OrderItemVM>();
-                tb_totalPrice.Text ="Total: "+PendingOrder.TotalPrice.ToString("C");
+                tb_totalPrice.Text = "Total: " + PendingOrder.TotalPrice.ToString("C");
             }
         }
+
+        private void btn_viewOrders_Click(object sender, RoutedEventArgs e)
+        {
+            MyOrderWindow myOrderWindow = new MyOrderWindow(_user);
+            Window.GetWindow(this).Close();
+            myOrderWindow.Show();
+        }
+
         private void btn_addCart_Click(object sender, RoutedEventArgs e)
         {
             //check xem co order pending nao khong
@@ -107,23 +118,48 @@ namespace BookManagementWPFApp
             //sau do load ra
             if (sender is Button b)
             {
-                var book = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
-                _orderItemRepository.AddOrderItem(new OrderItem()
+                // Get the selected book and it's amount
+                var selectedBook = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
+                if (selectedBook == null) throw new Exception("Please select a book");
+                var quantity = 1;
+                var discount = selectedBook.Discount;
+                var totalPrice = selectedBook.Price * quantity;
+                if (discount != null)
                 {
-                    BookID = (int)b.Tag,
+                    // 5 quyen 20k => Giam 0.5 => moi quyen 10k
+                    var singleDiscountEachBook = selectedBook.Price * discount.discountValue;
+                    // 20k * 5 - (10k * 5)
+                    totalPrice = selectedBook.Price * quantity - singleDiscountEachBook * quantity;
+                }
+                Console.WriteLine(totalPrice);
+                // Add to our existing order
+                var orderItem = new OrderItem()
+                {
                     OrderID = PendingOrder.OrderID,
-                    Price = book.Price,
-                    Quantity = 1
-                });
+                    BookID = selectedBook.BookID,
+                    Price = totalPrice,
+                    Quantity = quantity,
+                };
+                _orderItemRepository.AddOrderItem(orderItem);
+                // Statistics: Update the book information
+                selectedBook.Quantity -= quantity;
+                selectedBook.VisitedNumber += quantity;
+                _bookRepository.UpdateBook(selectedBook);
+
+                MessageBox.Show($"Added book {selectedBook.Title} to cart.", "Success", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
+
             LoadPendingOrder();
         }
+
         private void icon_deleteOrderItem_Click(object sender, RoutedEventArgs e)
         {
-            if(sender is PackIcon pi && pi.DataContext is OrderItemVM orderItemVM)
+            if (sender is PackIcon pi && pi.DataContext is OrderItemVM orderItemVM)
             {
-                var result = MessageBox.Show("Are you sure you want to remove this item", "Confirm Remove Item", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if(result == MessageBoxResult.Yes)
+                var result = MessageBox.Show("Are you sure you want to remove this item", "Confirm Remove Item",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
                 {
                     _orderItemRepository.DeleteOrderItem(new OrderItem()
                     {
@@ -132,17 +168,19 @@ namespace BookManagementWPFApp
                     });
                     MessageBox.Show("Remove item successfull!");
                 }
-                MessageBox.Show("Cancel remove action successfull!");
 
+                MessageBox.Show("Cancel remove action successfull!");
             }
         }
 
         private void Btn_borrow_OnClick(object sender, RoutedEventArgs e)
         {
             var book = new Book();
-            if (sender is Button b) {
+            if (sender is Button b)
+            {
                 book = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
             }
+
             var currentUserId = int.Parse(Application.Current.Properties["UserID"].ToString());
             var currentUser = _userRepository.GetUser(u => u.UserID == currentUserId);
             if (book == null || currentUser == null) return;
@@ -150,19 +188,19 @@ namespace BookManagementWPFApp
             switch (currentBookLoans.Count)
             {
                 case < 5:
-                {
-                    var newLoan = new Loan
                     {
-                        BookID = book.BookID,
-                        UserID = currentUserId,
-                        BorrowDate = DateTime.Now,
-                        DueDate = DateTime.Now.AddDays(5),
-                        Status = LoanStatusConstant.Borrowed,
-                        FineAmount = book.Price * 25 / 100
-                    };
-                    _loanRepository.AddLoan(newLoan);
-                    break;
-                }
+                        var newLoan = new Loan
+                        {
+                            BookID = book.BookID,
+                            UserID = currentUserId,
+                            BorrowDate = DateTime.Now,
+                            DueDate = DateTime.Now.AddDays(5),
+                            Status = LoanStatusConstant.Borrowed,
+                            FineAmount = book.Price * 25 / 100
+                        };
+                        _loanRepository.AddLoan(newLoan);
+                        break;
+                    }
                 case >= 5 when currentBookLoans[0].DueDate < DateTime.Now:
                     currentBookLoans[0].UserID = currentUserId;
                     currentBookLoans[0].BorrowDate = DateTime.Now;
@@ -183,5 +221,4 @@ namespace BookManagementWPFApp
             }
         }
     }
-    
 }

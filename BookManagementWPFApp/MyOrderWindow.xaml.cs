@@ -1,8 +1,8 @@
 ﻿using BookManagement.BusinessObjects;
 using BookManagement.DataAccess.Repositories;
+using BookManagementWPFApp.Constants;
 using System.Collections.ObjectModel;
 using System.Windows;
-using BookManagementWPFApp.Constants;
 
 namespace BookManagementWPFApp
 {
@@ -44,17 +44,17 @@ namespace BookManagementWPFApp
                     MessageBoxButton.OK, MessageBoxImage.Hand);
                 return;
             }
-
-            var paymentWindow = new PaymentWindow(selectedOrder);
+            var currentOrder = _orderRepository.GetOrder(o => o.OrderID == selectedOrder.OrderID);
+            var paymentWindow = new PaymentWindow(currentOrder);
             paymentWindow.Show();
             this.Close();
         }
 
         private void btn_backToBooks_Click(object sender, RoutedEventArgs e)
         {
-            var bookListWindow = new BookListWindow(user);
+            UserWindow userWindow = new UserWindow();
             this.Close();
-            bookListWindow.Show();
+            userWindow.Show();
         }
     }
 }
