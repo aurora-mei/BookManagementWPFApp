@@ -5,39 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookManagementWPFApp"
         mc:Ignorable="d"
-                       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-TextElement.FontWeight="Regular"
-TextElement.FontSize="13"
-TextOptions.TextFormattingMode="Ideal"
-TextOptions.TextRenderingMode="Auto"
-Background="{DynamicResource MaterialDesignPaper}"
-FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStartupLocation="CenterScreen"
         Title="UserWindow" WindowState="Maximized">
     <Grid>
+
         <StackPanel>
             <StackPanel Margin="0" Height="44" materialDesign:ElevationAssist.Elevation="Dp4"
-            VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Horizontal" Background="#FFD1D6CB">
+                        VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Horizontal"
+                        Background="#FFF0F0F0">
                 <TextBlock Padding="60,0,0,0" Margin="15,8,0,0" FontWeight="Bold" Cursor="Hand"
-                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                Text="BM" Foreground="#FF1A1A1A" />
-                <Menu Cursor="Hand" Margin="1300,5,20,0" HorizontalAlignment="Right">
-                    <MenuItem BorderThickness="0,0,0,2">
-                        <!-- Header set to a StackPanel containing the icon and text -->
-                        <MenuItem.Header>
-                            <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="0,0,0,5">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="AccountCircle" Width="30" Height="30" />
-                                </StackPanel>
-                            </Border>
-                        </MenuItem.Header>
-                        <!-- Dropdown items -->
-                        <MenuItem Cursor="Hand" Header="Log out" Click="navigate_logOut" />
-                    </MenuItem>
-                </Menu>
+                           Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                           Text="BM" Foreground="#FF1A1A1A" />
+                <StackPanel Margin="1300,5,20,0" Orientation="Horizontal">
+                    <TextBlock Name="tb_userName" Text="username" FontWeight="SemiBold" Foreground="Black"
+                               VerticalAlignment="Center" Margin="0,5,0,0" />
+                    <Menu Cursor="Hand" HorizontalAlignment="Right">
+                        <MenuItem BorderThickness="0,0,0,2">
+                            <!-- Header set to a StackPanel containing the icon and text -->
+                            <MenuItem.Header>
+                                <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Padding="0,0,0,5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="AccountCircle" Width="30" Height="30" />
+                                    </StackPanel>
+                                </Border>
+                            </MenuItem.Header>
+                            <!-- Dropdown items -->
+                            <MenuItem Cursor="Hand" Header="Log out" Click="navigate_login" />
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
             </StackPanel>
-            <materialDesign:Card HorizontalAlignment="Stretch" >
+            <materialDesign:Card HorizontalAlignment="Stretch">
                 <TabControl
                     Height="750"
                     TabStripPlacement="Left">
@@ -47,11 +53,21 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                             <GradientStop Color="#FF636461" Offset="0" />
                         </LinearGradientBrush>
                     </TabControl.Background>
-                    <TabItem HorizontalContentAlignment="Left" Cursor="Hand" Header="Homepage" Width="200" Background="Gray"
+                    <TabItem HorizontalContentAlignment="Stretch" Cursor="Hand" Header="Homepage" Width="200"
+                             Background="Gray"
                              HorizontalAlignment="Left">
-                        <Frame >
-                           
-                        </Frame>
+                        <Frame x:Name="frame_homepage" Source="HomePage.xaml" HorizontalAlignment="Stretch" />
+                    </TabItem>
+                    <TabItem HorizontalContentAlignment="Stretch" Cursor="Hand" Header="My borrowed books" Width="200"
+                             Background="Gray"
+                             HorizontalAlignment="Left"
+                             >
+                        <Frame x:Name="frame_myborrowed" Source="MyBorrowed.xaml" />
+                    </TabItem>
+                    <TabItem HorizontalContentAlignment="Stretch" Cursor="Hand" Header="My order history" Width="200"
+                             Background="Gray"
+                             HorizontalAlignment="Left">
+                        <Frame x:Name="frame_myorders" Source="MyOrders.xaml" />
                     </TabItem>
                 </TabControl>
             </materialDesign:Card>

@@ -1,0 +1,16 @@
+﻿<Window x:Class="BookManagementWPFApp.MyOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookManagementWPFApp"
+        mc:Ignorable="d"
+        Title="MyOrderWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="My Orders" HorizontalAlignment="Center" Height="30" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <DataGrid IsReadOnly="True" Name="dgr_orders" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="28,62,28,155"/>
+        <Button Name="btn_payOrder" Content="Pay for this order" HorizontalAlignment="Center" Margin="0,337,0,0" VerticalAlignment="Top" Click="btn_payOrder_Click"/>
+        <Button Name="btn_backToBooks" Content="Back to book list" HorizontalAlignment="Left" Margin="28,18,0,0" VerticalAlignment="Top" Click="btn_backToBooks_Click"/>
+
+    </Grid>
+</Window>

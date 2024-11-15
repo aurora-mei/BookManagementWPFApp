@@ -18,7 +18,7 @@ FontFamily="{DynamicResource MaterialDesignFont}"
     <Grid>
         <StackPanel>
             <StackPanel Margin="0" Height="44" materialDesign:ElevationAssist.Elevation="Dp4"
-            VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Horizontal" Background="#FFD1D6CB">
+            VerticalAlignment="Top" HorizontalAlignment="Stretch" Orientation="Horizontal" Background="#FFF0F0F0">
                 <TextBlock Padding="60,0,0,0" Margin="15,8,0,0" FontWeight="Bold" Cursor="Hand"
                 Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                 Text="BM" Foreground="#FF1A1A1A" />
@@ -33,7 +33,7 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                             </Border>
                         </MenuItem.Header>
                         <!-- Dropdown items -->
-                        <MenuItem Cursor="Hand" Header="Log out" Click="navigate_logOut" />
+                        <MenuItem Cursor="Hand" Header="Log out" Click="navigate_login" />
                     </MenuItem>
                 </Menu>
             </StackPanel>
@@ -52,7 +52,7 @@ FontFamily="{DynamicResource MaterialDesignFont}"
                         <StackPanel Width="1330">
                             <StackPanel.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FFA6A9A2"/>
+                                    <GradientStop Color="#FFF0F0F0"/>
                                     <GradientStop Color="White" Offset="1"/>
                                 </LinearGradientBrush>
                             </StackPanel.Background>
@@ -62,7 +62,7 @@ Margin="0,130,0,0"
 Height="430" 
 CornerRadius="5">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="/download (9).jpg" />
+                                    <ImageBrush ImageSource="/Images/download (9).jpg" />
                                 </Border.Background>
                                 <Grid>
                                     <TextBlock Text="Welcome back, Admin!" 
@@ -77,16 +77,18 @@ CornerRadius="5">
 
                         </StackPanel>
                     </TabItem>
-                    <TabItem HorizontalContentAlignment="Left" Cursor="Hand" Header="Manage User" Width="200" Background="Gray"
+                    <TabItem HorizontalContentAlignment="Stretch" Cursor="Hand" Header="Manage User" Width="200" Background="Gray"
                              HorizontalAlignment="Left">
-                        
+                        <Frame x:Name="frame_manageUser" Source="ManageUserPage.xaml" HorizontalAlignment="Stretch" />
                     </TabItem>
-                    <TabItem HorizontalContentAlignment="Left" Cursor="Hand" Header="Manage Book" Width="200" Background="Gray"
+                    <TabItem HorizontalContentAlignment="Stretch" Cursor="Hand" Header="Manage Book" Width="200" Background="Gray"
           HorizontalAlignment="Left">
+                        <Frame x:Name="frame_manageBook" Source="Admin/Home.xaml" HorizontalAlignment="Stretch" />
 
                     </TabItem>
-                    <TabItem HorizontalContentAlignment="Left" Cursor="Hand" Header="Manage Order" Width="200" Background="Gray"
+                    <TabItem HorizontalContentAlignment="Stretch" Cursor="Hand" Header="Manage Order" Width="200" Background="Gray"
           HorizontalAlignment="Left">
+                        <Frame x:Name="frame_manageOrder" Source="ManageOrderPage.xaml" HorizontalAlignment="Stretch" />
 
                     </TabItem>
                 </TabControl>
