@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Globalization;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using BookManagement.BusinessObjects;
@@ -43,9 +44,9 @@ public class PaymentHelper
         var stringContent = new StringContent(JsonConvert.SerializeObject(createOrderRequestDto), Encoding.UTF8,
             "application/json");
         var responseMessage = await httpClient.PostAsync(createOrderURL, stringContent);
-        responseMessage.EnsureSuccessStatusCode();
         
         var responseString = await responseMessage.Content.ReadAsStringAsync();
+        // responseMessage.EnsureSuccessStatusCode();
         var responseJson = JsonConvert.DeserializeObject<CreateOrderResponseDto>(responseString);
         if (responseJson == null) throw new Exception("Response is null");
         // Set the id so that user can check for it status
@@ -63,8 +64,15 @@ public class PaymentHelper
 
         foreach (var orderItem in order.OrderItems)
         {
-            // Price of each books
-            var usdPrice = orderItem.Book.Price / MyConstants.USD_DIFFERENCE;
+            // Price of each book (No need to calculate the discount because I calculated before
+            var discount = orderItem.Book.Discount;
+            var singleDiscountEachBook = orderItem.Book.Price;
+            if (discount != null)
+            {
+                // 5 quyen 20k => Giam 0.5 => moi quyen 10k
+                singleDiscountEachBook = orderItem.Book.Price * discount.discountValue;
+            }
+            var usdPrice = singleDiscountEachBook / MyConstants.USD_DIFFERENCE;
             itemList.Add(new CreateOrderRequestDto.Items()
             {
                 currency = MyConstants.CURRENCY,
@@ -79,6 +87,7 @@ public class PaymentHelper
                 }
             });
         }
+        // Convert VND to USD (No need to calculate for the discount here)
         var usdTotalPrice = order.TotalPrice / MyConstants.USD_DIFFERENCE;
         // Calculate the addresses of user first
         var addresses = order.User.Address.Split(",");
@@ -93,6 +102,8 @@ public class PaymentHelper
             homeAddr = addresses[0];
             cityAddr = addresses[1];
         }
+        // Decide if user is using fast delivery or not
+        bool isFastDelivery = order.ShippingMethod != null && !order.ShippingMethod.Equals("normal delivery", StringComparison.OrdinalIgnoreCase);
         var orderRequestDto = new CreateOrderRequestDto
         {
             intent = MyConstants.CAPTURE,
@@ -119,13 +130,18 @@ public class PaymentHelper
                     // Amount total
                     amount = new CreateOrderRequestDto.Amount()
                     {
-                        value = usdTotalPrice.ToString("F1"),
+                        value = (isFastDelivery ? (usdTotalPrice + 0.5) : usdTotalPrice).ToString("F1"),
                         currency_code = MyConstants.CURRENCY,
                         breakdown = new CreateOrderRequestDto.Breakdown()
                         {
                             item_total = new CreateOrderRequestDto.Item_total()
                             {
                                 value = usdTotalPrice.ToString("F1"),
+                                currency_code = MyConstants.CURRENCY
+                            },
+                            shipping = new CreateOrderRequestDto.ShippingFee()
+                            {
+                                value = (isFastDelivery ? 0.5 : 0).ToString("F1", CultureInfo.InvariantCulture),
                                 currency_code = MyConstants.CURRENCY
                             }
                         },
@@ -156,7 +172,7 @@ public class PaymentHelper
             order.Status = MyConstants.STATUS_PAID_AND_CONFIRMED;
             orderRepository.UpdateOrder(order);
             return true;
-        } 
+        }
         if (!response.IsSuccessStatusCode)
         {
             var rspContent = await response.Content.ReadAsStringAsync();
