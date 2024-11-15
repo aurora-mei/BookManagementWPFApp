@@ -26,9 +26,9 @@
         <TextBlock FontSize="16" FontWeight="DemiBold" Name="tb_pendingOrderID" Visibility="Collapsed" />
         <ScrollViewer Margin="20,10,10,0">
             <StackPanel>
-                <StackPanel Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <StackPanel Height="300" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     <StackPanel.Background>
-                        <ImageBrush ImageSource="/Images/e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
+                        <ImageBrush ImageSource="/Images/Homepage.jpg" />
                     </StackPanel.Background>
                 </StackPanel>
                 <Expander Margin="0,10,0,0" HorizontalAlignment="Stretch">

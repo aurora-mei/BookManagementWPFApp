@@ -42,6 +42,8 @@
   <ItemGroup>
     <Resource Include="Images\download (9).jpg" />
     <Resource Include="Images\e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
+    <None Remove="Images\Homepage.jpg" />
+    <Resource Include="Images\Homepage.jpg" />
   </ItemGroup>
 
   <ItemGroup>

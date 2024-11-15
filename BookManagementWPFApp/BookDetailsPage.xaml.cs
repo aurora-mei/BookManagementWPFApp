@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookManagement.BusinessObjects;
+using Util;
 
 namespace BookManagementWPFApp
 {
@@ -22,12 +24,16 @@ namespace BookManagementWPFApp
     public partial class BookDetailsPage : Page
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ILoanRepository _loanRepository;
         public int BookID { get; set; }
         public BookDetailsPage(int BookID)
         {
             InitializeComponent();
             this.BookID = BookID;
             _bookRepository = new BookRepository();
+            _userRepository = new UserRepository();
+            _loanRepository = new LoanRepository();
             LoadBookDetails();
         }
         private void LoadBookDetails()
@@ -49,6 +55,49 @@ namespace BookManagementWPFApp
             tb_bookPublishDate.Text = book.PublishDate.ToString("dd/MM/yyyy");
             tb_bookQuantity.Text = book.Quantity.ToString();
             
+        }
+
+        private void Btn_borrow_OnClick(object sender, RoutedEventArgs e)
+        {
+            var book = _bookRepository.GetBookById(BookID);
+            var currentUserId = int.Parse(Application.Current.Properties["UserID"].ToString());
+            var currentUser = _userRepository.GetUser(u => u.UserID == currentUserId);
+            if (book == null || currentUser == null) return;
+            var currentBookLoans = _loanRepository.GetLoan(l => l.BookID == book.BookID);
+            switch (currentBookLoans.Count)
+            {
+                case < 5:
+                {
+                    var newLoan = new Loan
+                    {
+                        BookID = book.BookID,
+                        UserID = currentUserId,
+                        BorrowDate = DateTime.Now,
+                        DueDate = DateTime.Now.AddDays(5),
+                        Status = LoanStatusConstant.Borrowed,
+                        FineAmount = book.Price * 25 / 100
+                    };
+                    _loanRepository.AddLoan(newLoan);
+                    break;
+                }
+                case >= 5 when currentBookLoans[0].DueDate < DateTime.Now:
+                    currentBookLoans[0].UserID = currentUserId;
+                    currentBookLoans[0].BorrowDate = DateTime.Now;
+                    currentBookLoans[0].DueDate = DateTime.Now.AddDays(5);
+                    break;
+                case >= 5 when currentBookLoans[0].DueDate >= DateTime.Now:
+                    var waitLoan = new Loan
+                    {
+                        BookID = book.BookID,
+                        UserID = currentUserId,
+                        BorrowDate = DateTime.Now,
+                        DueDate = DateTime.Now.AddDays(5),
+                        Status = LoanStatusConstant.Waiting,
+                        FineAmount = book.Price * 25 / 100
+                    };
+                    _loanRepository.AddLoan(waitLoan);
+                    break;
+            }
         }
     }
 }

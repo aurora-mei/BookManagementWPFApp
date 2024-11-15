@@ -62,7 +62,7 @@ Margin="0,130,0,0"
 Height="430" 
 CornerRadius="5">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="/download (9).jpg" />
+                                    <ImageBrush ImageSource="/Images/download (9).jpg" />
                                 </Border.Background>
                                 <Grid>
                                     <TextBlock Text="Welcome back, Admin!" 
