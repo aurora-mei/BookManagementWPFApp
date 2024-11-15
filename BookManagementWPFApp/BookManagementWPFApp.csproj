@@ -12,6 +12,7 @@
     <None Remove="bookDarkgreen.png" />
     <None Remove="bookThumbnail.jpg" />
     <None Remove="download %289%29.jpg" />
+    <None Remove="e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,13 +24,24 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+    <PackageReference Include="PayPalServerSDK" Version="0.6.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookManagement.BusinessObjects\BookManagement.BusinessObjects.csproj" />
+    <ProjectReference Include="..\BookManagement.DataAccess\BookManagement.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\download (9).jpg" />
+    <Resource Include="Images\e9113f44-d9f7-4b7d-970a-d210ebf996bd.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,9 +49,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="bookDarkgreen.png" />
-    <Resource Include="bookThumbnail.jpg" />
-    <Resource Include="download (9).jpg" />
+    <Folder Include="Books\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Credentials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

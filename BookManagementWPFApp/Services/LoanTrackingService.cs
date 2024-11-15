@@ -1,11 +1,12 @@
 using BookManagement.DataAccess.Repositories;
+using Util;
 
 namespace BookManagementWPFApp.Services;
 
 public class LoanTrackingService
 {
     private readonly ILoanRepository _loanRepository;
-    private readonly TimeSpan _checkInterval = TimeSpan.FromMinutes(5); // Adjust as needed
+    private readonly TimeSpan _checkInterval = TimeSpan.FromMinutes(5);
     private readonly Timer _timer;
 
     public LoanTrackingService(ILoanRepository loanRepository)
@@ -16,7 +17,7 @@ public class LoanTrackingService
 
     private void TrackLoans(object state)
     {
-        var overdueLoans = _loanRepository.GetLoan(l => l.Status == 0 && l.DueDate <= DateTime.Now)
+        var overdueLoans = _loanRepository.GetLoan(l => l.Status.Equals(LoanStatusConstant.Borrowed) && l.DueDate <= DateTime.Now)
             .OrderBy(l => l.DueDate)
             .ToList();
 
@@ -26,12 +27,12 @@ public class LoanTrackingService
             _loanRepository.DeleteLoan(loan.LoanID);
 
             // Promote the next waiting loan if it exists
-            var waitingLoan = _loanRepository.GetLoan(l => l.BookID == loan.BookID && l.Status == 1)
+            var waitingLoan = _loanRepository.GetLoan(l => l.BookID == loan.BookID && l.Status.Equals(LoanStatusConstant.Waiting))
                 .OrderBy(l => l.BorrowDate)
                 .FirstOrDefault();
             if (waitingLoan != null)
             {
-                waitingLoan.Status = 0; // Active
+                waitingLoan.Status = LoanStatusConstant.Borrowed; // Active
                 _loanRepository.UpdateLoan(waitingLoan);
             }
         }

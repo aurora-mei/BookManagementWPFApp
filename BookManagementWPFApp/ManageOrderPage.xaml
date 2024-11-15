@@ -1,0 +1,29 @@
+﻿<Page x:Class="BookManagementWPFApp.ManageOrderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookManagementWPFApp"
+      mc:Ignorable="d" 
+      Title="ManageOrderPage">
+
+    <Grid  HorizontalAlignment="Stretch">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="1"/>
+                <GradientStop Color="#FFF0F0F0" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TabControl Margin="30,0" HorizontalAlignment="Stretch" Height="auto"
+ >
+            <TabItem
+    Header="Processing">
+                <Frame Source="ManageProcessingOrders.xaml"/>
+            </TabItem>
+            <TabItem
+Header="Completed">
+                <Frame Source="ManageCompletedOrders.xaml"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>
