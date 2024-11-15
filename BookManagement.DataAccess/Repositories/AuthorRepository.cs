@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookManagement.DataAccess.Repositories
 {
-    internal class AuthorRepository : IAuthorRepository
+    public class AuthorRepository : IAuthorRepository
     {
         public void AddAuthor(Author author)
         {

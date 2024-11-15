@@ -24,6 +24,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0"/>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
     <PackageReference Include="PayPalServerSDK" Version="0.6.0" />
@@ -33,6 +35,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+    
 
   <ItemGroup>
     <ProjectReference Include="..\BookManagement.BusinessObjects\BookManagement.BusinessObjects.csproj" />
@@ -51,6 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Images\" />
     <Folder Include="Books\" />
   </ItemGroup>
 

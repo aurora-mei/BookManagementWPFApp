@@ -1,0 +1,70 @@
+﻿<Page x:Class="BookManagementWPFApp.Admin.BookDetail"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      xmlns:local="clr-namespace:BookManagementWPFApp.Admin"
+      mc:Ignorable="d"
+      Title="Book Detail">
+
+    <Grid Margin="20">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid>
+                <!-- Define two columns -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- StackPanel 1 for the left column -->
+                <StackPanel Margin="20" VerticalAlignment="Top" Grid.Column="0">
+                    <Image x:Name="img_BookImage" Width="200" Height="300" Margin="10" HorizontalAlignment="Center"/>
+                    <Button Name="btn_ChangeImg" Content="Change Image" Width="150" Height="40" Margin="10" Click="btn_ChangeImg_Click" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFlatButton}"/>
+
+                    <TextBlock Text="ID:" FontWeight="Bold" Margin="10"/>
+                    <TextBox x:Name="txt_ID" Width="300"/>
+
+                    <TextBlock Text="Title:" FontWeight="Bold" Margin="10"/>
+                    <TextBox x:Name="txt_Title" Width="300"/>
+
+                    <TextBlock Text="Price:" FontWeight="Bold" Margin="10"/>
+                    <TextBox x:Name="txt_Price" Width="300"/>
+
+                    <TextBlock Text="Quantity:" FontWeight="Bold" Margin="10"/>
+                    <TextBox x:Name="txt_Quantity" Width="300"/>
+                </StackPanel>
+
+                <!-- StackPanel 2 for the right column -->
+                <StackPanel Margin="20" VerticalAlignment="Top" Grid.Column="1">
+                    <TextBlock Text="Publish Date:" FontWeight="Bold" Margin="10"/>
+                    <DatePicker Name="dp_PublishDate" HorizontalAlignment="Center" Margin="10" Width="299"/>
+
+                    <TextBlock Text="Category:" FontWeight="Bold" Margin="10"/>
+                    <ComboBox Name="cb_Category" Height="30" Width="296"/>
+
+                    <TextBlock Text="Description:" FontWeight="Bold" Margin="10"/>
+                    <TextBox x:Name="txt_Description" Width="300" Margin="10" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+                    <TextBlock Text="Language:" FontWeight="Bold" Margin="10"/>
+                    <TextBox x:Name="txt_Language" Width="300"/>
+
+                    <TextBlock Text="Author:" FontWeight="Bold" Margin="10"/>
+                    <ComboBox Name="cb_Author" Height="30" Width="296"/>
+
+                    <TextBlock Text="Discount:" FontWeight="Bold" Margin="10"/>
+                    <ComboBox Name="cb_Discount" Height="30" Width="296"/>
+
+                    <Button Name="btn_Save" Content="Save" Width="150" Height="40" Margin="10" HorizontalAlignment="Center" Click="SaveBook_Click" Style="{StaticResource MaterialDesignRaisedButton}"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
