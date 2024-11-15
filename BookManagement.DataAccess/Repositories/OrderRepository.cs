@@ -46,10 +46,7 @@ public class OrderRepository : IOrderRepository
 
 	public void AddOrder(Order order)
 	{
-		using  var db = new BookManagementDbContext();
-		order.Status = OrderStatusConstant.Pending;
-		order.OrderDate = DateTime.Now;
-		order.TotalPrice = order.CalTotalPrice();
+		var db = new BookManagementDbContext();
 		db.Orders.Add(order);
 		db.SaveChanges();
 	}

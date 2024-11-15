@@ -1,19 +1,8 @@
 ﻿using BookManagement.BusinessObjects.ViewModel;
 using BookManagement.DataAccess.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BookManagementWPFApp.Constants;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Util;
 
 namespace BookManagementWPFApp
@@ -36,7 +25,7 @@ namespace BookManagementWPFApp
         {
             var userId = int.Parse(Application.Current.Properties["UserID"].ToString());
             var processingOrders = _orderRepo.ListOrders()
-                                          .Where(x => x.Status.Equals(OrderStatusConstant.Processing) && x.UserID == userId)
+                                          .Where(x => x.Status.Equals(MyConstants.STATUS_PENDING) && x.UserID == userId)
                                           .Select(order => new OrderVM
                                           {
                                               OrderID = order.OrderID,

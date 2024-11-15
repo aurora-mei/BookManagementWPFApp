@@ -137,6 +137,7 @@
                                 <TextBlock Name="tb_totalPrice"
                                            HorizontalAlignment="Right" Foreground="#FF1A1A1A" FontWeight="Bold"
                                            FontSize="15" />
+                                <Button Name="btn_viewOrders" Content="View my orders" HorizontalAlignment="Left" Margin="467,367,0,0" VerticalAlignment="Top" Click="btn_viewOrders_Click" Background="#FFA72C2C"/>
                             </StackPanel>
                         </Grid>
                     </Border>
