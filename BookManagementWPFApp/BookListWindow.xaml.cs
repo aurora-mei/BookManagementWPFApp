@@ -76,7 +76,7 @@ namespace BookManagementWPFApp
                     if (selectedBook == null) throw new Exception("Please select a book");
                     var quantity = int.Parse(amount);
                     var discount = selectedBook.Discount;
-                    var totalPrice = selectedBook.Price;
+                    var totalPrice = selectedBook.Price * quantity;
                     if (discount != null)
                     {
                         // 5 quyen 20k => Giam 0.5 => moi quyen 10k

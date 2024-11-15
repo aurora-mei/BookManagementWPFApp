@@ -67,8 +67,9 @@ namespace BookManagementWPFApp
                     Quantity = o.Quantity,
                 };
             dgr_temp.ItemsSource = new ObservableCollection<OrderDetailVM>(orderDetails);
+            var previousSelectedIndex = cb_delivery.SelectedIndex;
             cb_delivery.ItemsSource = new[] { "Normal delivery", "Fast delivery" };
-            cb_delivery.SelectedIndex = 0;
+            cb_delivery.SelectedIndex = previousSelectedIndex == -1 ? 0 : previousSelectedIndex;
             string orderStatus = "";
             if (_order != null && _order.Status == MyConstants.STATUS_NOT_PAID)
             {
