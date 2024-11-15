@@ -74,11 +74,12 @@
                                         <TextBlock Text="Borrow" Foreground="Black"
                                                    materialDesign:ShadowAssist.Darken="True" />
                                     </Button>
-                                    <Button Margin="0,10,0,5" Name="btn_addCart"
+                                    <Button Margin="0,10,0,5" Name="btn_read"
                                             materialDesign:ButtonAssist.CornerRadius="5" Tag="{Binding BookID}"
                                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                            Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30">
-                                        <TextBlock Text="Add to cart" Foreground="Black"
+                                            Background="#FFFFDB78" BorderBrush="{x:Null}" Height="30"
+                                            Click="Btn_read_OnClick">
+                                        <TextBlock Text="Read this book" Foreground="Black"
                                                    materialDesign:ShadowAssist.Darken="True" />
                                     </Button>
                                 </StackPanel>
