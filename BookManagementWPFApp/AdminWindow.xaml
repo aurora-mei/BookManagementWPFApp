@@ -83,7 +83,7 @@ CornerRadius="5">
                     </TabItem>
                     <TabItem HorizontalContentAlignment="Stretch" Cursor="Hand" Header="Manage Book" Width="200" Background="Gray"
           HorizontalAlignment="Left">
-                        <Frame x:Name="frame_manageBook" Source="ManageBookPage.xaml" HorizontalAlignment="Stretch" />
+                        <Frame x:Name="frame_manageBook" Source="Admin/Home.xaml" HorizontalAlignment="Stretch" />
 
                     </TabItem>
                     <TabItem HorizontalContentAlignment="Stretch" Cursor="Hand" Header="Manage Order" Width="200" Background="Gray"

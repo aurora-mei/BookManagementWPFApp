@@ -123,15 +123,15 @@ namespace BookManagementWPFApp
                 var selectedBook = _bookRepository.GetBookById(int.Parse(b.Tag.ToString()));
                 if (selectedBook == null) throw new Exception("Please select a book");
                 var quantity = 1;
-                var discount = selectedBook.Discount;
+                // var discount = selectedBook.Discount;
                 var totalPrice = selectedBook.Price * quantity;
-                if (discount != null)
-                {
-                    // 5 quyen 20k => Giam 0.5 => moi quyen 10k
-                    var singleDiscountEachBook = selectedBook.Price * discount.discountValue;
-                    // 20k * 5 - (10k * 5)
-                    totalPrice = selectedBook.Price * quantity - singleDiscountEachBook * quantity;
-                }
+                // if (discount != null)
+                // {
+                //     // 5 quyen 20k => Giam 0.5 => moi quyen 10k
+                //     var singleDiscountEachBook = selectedBook.Price * discount.discountValue;
+                //     // 20k * 5 - (10k * 5)
+                //     totalPrice = selectedBook.Price * quantity - singleDiscountEachBook * quantity;
+                // }
                 Console.WriteLine(totalPrice);
                 // Add to our existing order
                 var orderItem = new OrderItem()

@@ -65,13 +65,13 @@ public class PaymentHelper
         foreach (var orderItem in order.OrderItems)
         {
             // Price of each book (No need to calculate the discount because I calculated before
-            var discount = orderItem.Book.Discount;
+            // var discount = orderItem.Book.Discount;
             var singleDiscountEachBook = orderItem.Book.Price;
-            if (discount != null)
-            {
-                // 5 quyen 20k => Giam 0.5 => moi quyen 10k
-                singleDiscountEachBook = orderItem.Book.Price * discount.discountValue;
-            }
+            // if (discount != null)
+            // {
+            //     // 5 quyen 20k => Giam 0.5 => moi quyen 10k
+            //     singleDiscountEachBook = singleDiscountEachBook - (orderItem.Book.Price * discount.discountValue);
+            // }
             var usdPrice = singleDiscountEachBook / MyConstants.USD_DIFFERENCE;
             itemList.Add(new CreateOrderRequestDto.Items()
             {

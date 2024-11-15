@@ -221,7 +221,7 @@
                 <ItemsControl x:Name="ic_books">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Columns="4" HorizontalAlignment="Left" />
+                            <UniformGrid Columns="6" HorizontalAlignment="Left" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
